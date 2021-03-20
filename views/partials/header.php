@@ -62,7 +62,7 @@ function insertHeader($pageTitleParam = 'Task Management',
         <h1>
         <span class="hidden">Task Management</span>
         <a class="nav-link" href="../index.php">
-            <img src="../images/logo-C4M.png" height="50px" alt="Italian Trulli">
+            <img src="../images/logo-C4M.png" height="50px" alt="C4M Logo Image">
         </a></h1>
         <nav class="navbar-expand-lg ">
             <ul class="nav justify-content-end ">
