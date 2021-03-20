@@ -8,10 +8,12 @@ class UpcomingDueDates {
         
     }
 
-
+    // This method will show the top 5 most urgent open tasks that a user is responsible for, tasks that are past due will be included since they are deemed even more urgent 
     public static function getUpcomingDueDates($user_id, $dbconn) {
 
-        $sql = "SELECT * FROM tasks 
+        $sql = "SELECT *, 
+                DATE_ADD(tasks.created_date, INTERVAL tasks.estimated_time DAY) AS due_date 
+                FROM tasks 
                 JOIN project_user 
                     ON tasks.assigned_user_id = project_user.id 
                 JOIN state 
@@ -19,7 +21,7 @@ class UpcomingDueDates {
                 WHERE project_user.app_user_id = :id 
                     AND state.description <> 'Done' 
                     AND state.description <> 'Canceled' 
-                ORDER BY tasks.created_date 
+                ORDER BY due_date ASC
                 LIMIT 5;";
 
         $pdostm = $dbconn->prepare($sql);
@@ -32,11 +34,13 @@ class UpcomingDueDates {
 
             $taskElements = '';
             foreach($queryResults as $result) {
+            
+
             $taskElements .= <<<TASKHTML
                 <div class="border-top border-bottom">
                     <h4 class="h6">$result->title</h4>
                     <p>$result->description</p>
-                    <p>Created: $result->created_date</p>
+                    <p>Due: $result->due_date</p>
                 </div>
             TASKHTML;
             }

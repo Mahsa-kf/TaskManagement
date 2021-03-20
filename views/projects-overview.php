@@ -8,6 +8,7 @@ require_once '../Model/ProjectOverview.php';
 require_once '../Model/SideBar.php';
 require_once '../Model/Database.php';
 require_once '../Model/UpcomingDueDates.php';
+require_once '../Model/Notifications.php';
 
 require("./partials/footer.php");
 require("./partials/header.php");
@@ -24,6 +25,7 @@ $Nav = new SideBar(['About Us','Work', 'Contact Us']);
 $_SESSION['user_id'] = 'James@bond.com'; //code to get rid of error msg temporarily, delete it after work has been shown to Nithya
 $upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['user_id'], $dbcon);
 
+$notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbcon);
 
 ?>
 
@@ -36,6 +38,7 @@ $upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['user_id'], 
                 <?php
                     //echo $Nav->display_SideNav();
                     echo $upcomingDueDates;
+                    echo $notifications;
                 ?>
 
         </nav>
