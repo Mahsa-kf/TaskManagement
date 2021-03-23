@@ -1,12 +1,15 @@
 
-CREATE TABLE IF NOT EXISTS category ( 
+DROP TABLE IF EXISTS tasks
+DROP TABLE IF EXISTS category
+
+CREATE TABLE category ( 
    id INT PRIMARY KEY AUTO_INCREMENT, 
    title varchar(250),
    description varchar(1000),
    created_date timestamp,
-   poject_id int,
+   project_id int,
    creator_user_id int,
-FOREIGN KEY (poject_id)
+FOREIGN KEY (project_id)
 	REFERENCES project(id)
 	ON DELETE SET NULL,		
 FOREIGN KEY (creator_user_id)
@@ -16,6 +19,6 @@ FOREIGN KEY (creator_user_id)
 
 
 -- INSERT INTO category 
--- 	(title,description,created_date, poject_id, creator_user_id)
+-- 	(title,description,created_date, project_id, creator_user_id)
 -- VALUES
--- 	('Task CRUD ','Implimnet CRUD for task',now(),1,1),
+-- 	('Task CRUD ','Implimnet CRUD for task',now(),1,3)

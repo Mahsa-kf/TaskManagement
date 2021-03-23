@@ -5,7 +5,7 @@ class Database
 {
     //properties
     private static $user = 'root';
-    private static $pass = 'root';
+    private static $pass = '';
     private static $dsn = 'mysql:host=localhost;dbname=task_management';
     private static $dbcon;
 
