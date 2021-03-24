@@ -97,8 +97,8 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
             </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 <?php
 insertFooter();
 ?>
