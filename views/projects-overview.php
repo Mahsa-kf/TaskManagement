@@ -43,7 +43,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
 
         </nav>
         
-<main role="main" class="overviewpage col-md-10">  
+<main role="main" class="col-md-10">
     <div class=" py-5 bg-light">
         <div class="container">
             <div class="p-5 text-center">
