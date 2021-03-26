@@ -25,13 +25,14 @@ if(isset($_POST['updateProject'])){
     $project = $p->getProjectById($id, $db);
     
     $name = $project->name;
-    $project_timestamp = $project->project_timestamp;
+    $project_timestamp =  new Datetime($project_timestamp);
+    $date = $project_timestamp->format('m/d/Y');
     $description = $project->description;
 
 }
 
 if(isset($_POST['updProject'])) {
-    $id= $_POST['sid'];
+    $id= $_POST['id'];
     $name = $_POST['project_name'];
     $project_timestamp = $_POST['project_timestamp'];
     $description = $_POST['project_description'];
@@ -56,7 +57,7 @@ if(isset($_POST['updProject'])) {
                 <h2>Update Project</h2>
                 <div>
                     <form id="add_project_form" name="form_add_project" method="POST" action="">
-                    <input type="hidden" name="sid" value="<?= $id; ?>" />
+                    <input type="hidden" name="id" value="<?= $id; ?>" />
                         <div class="form-group row mb-3">
                             <label class="col-sm-3 col-form-label" for="project_name">Project Name</label>
                             <input class="col-sm-9" type="text" name="project_name" id="project_name" value="<?= $name; ?>" placeholder="Please type your project name">
@@ -66,12 +67,12 @@ if(isset($_POST['updProject'])) {
 
                         <div class="form-group row mb-3">
                             <label class="col-sm-3 col-form-label" for="project_timestamp">Start Date</label>
-                            <input class="col-sm-9" type="date" name="project_timestamp" id="project_timestamp" value="<?= $project_timestamp; ?>"placeholder="Please select the project's start date">
+                            <input class="col-sm-9" type="date" name="project_timestamp" id="project_timestamp" value="<?= $date;?>" placeholder="Please select the project's start date">
                             <span style="color:red;"><?= isset($projectTimestampErr) ? $projectTimestampErr : ''; ?></span>
                         </div>
 
                         <div class="form-group row mb-3">
-                            <div class="label"><label class="col-form-label" for="project_description">Project Description</label>
+                            <div class="label"><label class="col-form-label" for="Description">Project Description</label>
                                 <textarea class="form-control" name="project_description" id="project_description" rows="6" value="<?= $description; ?>" placeholder="Please provide the details of the project"></textarea>
                                 <span style="color:red;"><?= isset($projectDescErr) ? $projectDescErr : ''; ?></span>
                             </div>
