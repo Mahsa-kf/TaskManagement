@@ -37,6 +37,7 @@ if(isset($_POST['submit'])){
         $_SESSION['EMAIL'] = $_POST['email'];
         
         header("location: projects-overview.php");
+        exit();
 
     } catch (\Exception $e) {
         echo $e;

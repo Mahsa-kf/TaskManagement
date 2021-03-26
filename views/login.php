@@ -46,6 +46,7 @@ insertHeader();
         $_SESSION['isLoggedIn'] = true; //Set isLoggedIn indicator for dynamic content and authentication on other pages
         
         header("location: projects-overview.php");
+        exit();
     
     } else {
         
