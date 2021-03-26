@@ -36,7 +36,7 @@ if(isset($_POST['submit'])){
         session_regenerate_id(true); //generate and replace new session_id
         $_SESSION['EMAIL'] = $_POST['email'];
         
-        header("location: task-board.php");
+        header("location: projects-overview.php");
 
     } catch (\Exception $e) {
         echo $e;

@@ -45,7 +45,7 @@ insertHeader();
         $_SESSION['userId'] = $user['id'];
         $_SESSION['isLoggedIn'] = true; //Set isLoggedIn indicator for dynamic content and authentication on other pages
         
-        header("location: task-board.php");
+        header("location: projects-overview.php");
     
     } else {
         
