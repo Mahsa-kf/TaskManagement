@@ -16,26 +16,30 @@ $name = $project_timestamp = $description = "";
 
     if(isset($_POST['addProject'])) {
 
-        if(empty($_POST['name'])){
+        if(empty($_POST['project_name'])){
             $projectNameErr = "Please input your porject name";   
         } else {
             $name = $_POST['project_name'];
         }
-        //if(empty($_POST['project_timestamp'])){
-        //    $projectTimestampErr = "Please select the start date";   
-        //} else {
-        //    $project_timestamp = $_POST['project_timestamp'];
-        //}
+        if(empty($_POST['project_timestamp'])){
+            $projectTimestampErr = "Please select the start date";   
+        } else {
+            $project_timestamp = $_POST['project_timestamp'];
+        }
         if(empty($_POST['project_description'])){
             $projectDescErr = "Please input your project description";
         }else {
             $description = $_POST['project_description'];
         }
+
+        $db = Database::getDb();
+        $p = new Project();
+        $projects = $p->addProject($name, $project_timestamp, $description, $db);
+
+        header('Location: projects-overview.php');
     }
 
-    $db = Database::getDb();
-    $p = new Project();
-    $projects = $p->addProject($name, $project_timestamp, $description, $db);
+    
 
     
 ?>

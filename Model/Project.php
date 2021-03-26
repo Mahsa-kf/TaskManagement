@@ -13,7 +13,7 @@ class Project
         $pst->bindParam(':name', $name);
         $pst->bindParam(':project_timestamp', $project_timestamp);
         $pst->bindParam(':description', $description);
-
+        var_dump($name, $project_timestamp, $description);
         $count = $pst->execute();
         return $count;
     }
@@ -28,7 +28,7 @@ class Project
 
     }
 
-    public function updateProject($id,$name, $project_timestamp, $description, $db){
+    public function updateProject($id, $name, $project_timestamp, $description, $db){
         $sql = "Update project
                 set name = :name,
                 project_timestamp = :project_timestamp,
