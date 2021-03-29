@@ -35,26 +35,27 @@ class TaskProgress {
 
                 $completedTasksCounter = $completedTasksCounter + 1;
             }
+        }
 
-            if ($totalTasksCounter > 0) {
-                $completionPercentage = strval(round($completedTasksCounter / $totalTasksCounter));                
-            } else {
-                $completionPercentage = "0";
-            }
+        if ($totalTasksCounter > 0) {
+            $completionPercentage = strval(round($completedTasksCounter / $totalTasksCounter));                
+        } else {
+            $completionPercentage = "0";
+        }
 
 
-            $taskProgressElement = <<<PROGRESSHTML
-                <div class="container">
-                    <h5 class="h6">$completionPercentage</h5>
-                    <div class="progress border">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="$completionPercentage"
-                        aria-valuemin="0" aria-valuemax="100" style="width:$completionPercentage%">
-                        <span class="sr-only">$completionPercentage% Complete</span>
-                        </div>
+        $taskProgressElement = <<<PROGRESSHTML
+            <div class="container">
+                <h5 class="h6">$completionPercentage</h5>
+                <div class="progress border">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="$completionPercentage"
+                    aria-valuemin="0" aria-valuemax="100" style="width:$completionPercentage%">
+                    <span class="sr-only">$completionPercentage% Complete</span>
                     </div>
                 </div>
-            PROGRESSHTML;
-        }
+            </div>
+        PROGRESSHTML;
+
 
         return $taskProgressElement;            
 
