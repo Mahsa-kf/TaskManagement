@@ -1,6 +1,5 @@
 <?php
 
-
 // Start or resume a session
 session_start();
 
@@ -11,8 +10,6 @@ require("./partials/header.php");
 require("./partials/footer.php");
 insertHeader();
 
-
-// session_start();
 
  if(isset($_POST['submit'])){
 
