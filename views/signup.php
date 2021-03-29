@@ -10,6 +10,7 @@ insertHeader();
  
 session_start();
 
+// If form is submitted
 if(isset($_POST['submit'])){
     $count = 0;
 
@@ -21,21 +22,30 @@ if(isset($_POST['submit'])){
     //password regx
     if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password'])) {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    
+    // If password is no maching with regx    
     } else {
         echo 'password must 8 character or more';
         $count++;
     }
     
     try {
+        // Connect to database
         $db = Database::getDb();
 
+        // Create an instatnce of a class
         $s = new Authentication();
+
+        // Call registerUserData
         $user =  $s->registerUserData($_POST['fname'], $_POST['lname'], $_POST['email'], $password , $db);
         
-    
+        // Regenerate session
         session_regenerate_id(true); //generate and replace new session_id
+        
+        // Set email address for session
         $_SESSION['EMAIL'] = $_POST['email'];
         
+        // Redirect to projects-overview.php
         header("location: projects-overview.php");
         exit();
 

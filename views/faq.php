@@ -49,19 +49,9 @@ insertHeader();
             </div>
         </div>
         </form>
-        <!-- </div> -->
+       
     </div>
 </main>
-
- <script>
-
-// $(function(){
-//       $("#searchSubmit").on("click", function(event){
-
-//         $( "#searchForm" ).submit();
-//     });
-// }); 
-</script> 
 
 
 <?php

@@ -5,41 +5,60 @@ require_once '../Model/Database.php';
 require("./partials/header.php");
 insertHeader();
 
+// if search is submitted 
 if( isset($_GET['searchSubmit'])){
+
+    // set search value
     $search = $_GET['search'];
 
-    //var_dump($search);
-
     try {
+
+        // Connect to database
         $db = Database::getDb();
 
+        // Create an interface of a class
         $s = new FAQ();
+
+        // call and return getFAQBySearch
         $results = $s->getFAQBySearch($search, $db);
 
     
     } catch (\Exception $e) {
         echo $e;
-    }   
+    }  
+
+// if any fax category button is clicked    
 }else{
     if( isset($_GET['faq'])){
 
+        // Connect to database
         $db = Database::getDb();
+
+        // Create an instance of class
         $s = new FAQ();
 
         switch ($_GET['faq']) {
+            // $_GET['faq'] value is Top FAQ
             case 'Top FAQ':  
+                // Call and getFAQByCategory
                 $results = $s->getFAQByCategory("1", $db);
                 break;
 
+            // $_GET['faq'] value is Account Settings
             case 'Account Settings':
+                // Call and getFAQByCategory
                 $results = $s->getFAQByCategory("2", $db);
                 break;
 
+            // $_GET['faq'] value is Troubleshooting
             case 'Troubleshooting':
+                // Call and getFAQByCategory
                 $results = $s->getFAQByCategory("3", $db);
                 break;
 
+            // $_GET['faq'] value is Using TEAM C4M Task Management
             case 'Using TEAM C4M Task Management':
+                // Call and getFAQByCategory
                 $results = $s->getFAQByCategory("4", $db);
                 var_dump($results);
                 break;

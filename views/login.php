@@ -10,25 +10,32 @@ require("./partials/header.php");
 require("./partials/footer.php");
 insertHeader();
 
-
+// When form is submitted
  if(isset($_POST['submit'])){
 
     $count = 0;
      
+    // Validataion 
     if (!filter_var($_POST['userName'], FILTER_VALIDATE_EMAIL)) {
+       
+        // Set error message
         $userNameError =  "Please input valid user name";
         $count++;
     }
     
-    
+    // Connect to database
     $db = Database::getDb();
     
+    // Create an interface of a class
     $s = new Authentication();
+
+    // call and return getUserData
     $user =  $s->getUserData($_POST['userName'], $db);
-    
     
     //Check if email address is existing in DB
     if (!isset($user['email_address'])) {
+
+        // Set error message
         $userNameError =  "Please input valid user name";
         $count++;
     }
@@ -36,12 +43,16 @@ insertHeader();
     //Pass email address after check password
     if ($count == 0 && password_verify($_POST['password'], $user['password'])) {
     
-        session_regenerate_id(true); //generate and replace new session_id
+        //generate and replace new session_id
+        session_regenerate_id(true); 
         $_SESSION['EMAIL'] = $user['email_address'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['userId'] = $user['id'];
-        $_SESSION['isLoggedIn'] = true; //Set isLoggedIn indicator for dynamic content and authentication on other pages
+
+        //Set isLoggedIn indicator for dynamic content and authentication on other pages
+        $_SESSION['isLoggedIn'] = true; 
         
+        // Redirect to projects-overview.php
         header("location: projects-overview.php");
         exit();
     

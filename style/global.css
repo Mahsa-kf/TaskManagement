@@ -144,6 +144,10 @@ form .row {
     text-align: left !important;
 }
 
+.errorMsg{
+    color:red !important;
+}
+
 /************ FAQ ***************/
 .submitBtn{
     width: 100% !important;
