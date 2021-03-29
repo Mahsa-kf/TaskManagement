@@ -26,7 +26,7 @@ if(isset($_POST['updateProject'])){
     
     $name = $project->name;
     $project_timestamp =  new Datetime($project_timestamp);
-    $date = $project_timestamp->format('m/d/Y');
+    $date = $project_timestamp->format('Y-m-d');
     $description = $project->description;
 
 }
@@ -67,13 +67,13 @@ if(isset($_POST['updProject'])) {
 
                         <div class="form-group row mb-3">
                             <label class="col-sm-3 col-form-label" for="project_timestamp">Start Date</label>
-                            <input class="col-sm-9" type="date" name="project_timestamp" id="project_timestamp" value="<?= $date;?>" placeholder="Please select the project's start date">
+                            <input class="col-sm-9" type="date" name="project_timestamp" id="project_timestamp" value="<?= $date ?>" placeholder="Please select the project's start date">
                             <span style="color:red;"><?= isset($projectTimestampErr) ? $projectTimestampErr : ''; ?></span>
                         </div>
 
                         <div class="form-group row mb-3">
                             <div class="label"><label class="col-form-label" for="Description">Project Description</label>
-                                <textarea class="form-control" name="project_description" id="project_description" rows="6" value="<?= $description; ?>" placeholder="Please provide the details of the project"></textarea>
+                                <textarea class="form-control" name="project_description" id="project_description" rows="6" placeholder="Please provide the details of the project"><?= $description ?></textarea>
                                 <span style="color:red;"><?= isset($projectDescErr) ? $projectDescErr : ''; ?></span>
                             </div>
 
