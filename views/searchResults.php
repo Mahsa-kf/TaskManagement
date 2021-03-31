@@ -60,7 +60,7 @@ if( isset($_GET['searchSubmit'])){
             case 'Using TEAM C4M Task Management':
                 // Call and getFAQByCategory
                 $results = $s->getFAQByCategory("4", $db);
-                var_dump($results);
+                //var_dump($results);
                 break;
         }
     }
