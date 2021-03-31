@@ -31,6 +31,7 @@ if(isset($_POST['updateProject'])){
 
 }
 
+//changes update 
 if(isset($_POST['updProject'])) {
     $id= $_POST['id'];
     $name = $_POST['project_name'];
@@ -40,13 +41,8 @@ if(isset($_POST['updProject'])) {
     $db = Database::getDb();
     $p = new Project();
     $projects = $p->updateProject($id, $name, $project_timestamp, $description, $db);
-    
-    if($count){
-        header('Location:  projects-overview.php');
-    } else {
-        echo "problem";
-    }
 
+    header('Location:  projects-overview.php');
 }
     ?>
     <!--Main Start Here-->
