@@ -25,8 +25,7 @@ if(isset($_POST['updateProject'])){
     $project = $p->getProjectById($id, $db);
     
     $name = $project->name;
-    $project_timestamp =  new Datetime($project_timestamp);
-    $date = $project_timestamp->format('Y-m-d');
+    $project_timestamp = $project->project_timestamp;
     $description = $project->description;
 
 }
@@ -63,7 +62,7 @@ if(isset($_POST['updProject'])) {
 
                         <div class="form-group row mb-3">
                             <label class="col-sm-3 col-form-label" for="project_timestamp">Start Date</label>
-                            <input class="col-sm-9" type="date" name="project_timestamp" id="project_timestamp" value="<?= $date ?>" placeholder="Please select the project's start date">
+                            <input class="col-sm-9" type="datetime-local" name="project_timestamp" id="project_timestamp datepicker" value="<?= str_replace(" ", "T", $project_timestamp) ?>"  placeholder="Please select the project's start date">
                             <span style="color:red;"><?= isset($projectTimestampErr) ? $projectTimestampErr : ''; ?></span>
                         </div>
 
