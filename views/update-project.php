@@ -8,14 +8,15 @@ require("./partials/header.php");
 insertHeader();
 //insertSidebar();
 //session_start();
-//require_once './newprojectCheck.php';
 require_once '../Model/Project.php';
 require_once '../Model/Database.php';
 require_once '../Model/ProjectOverview.php';
-
+require("user-function.php");
 
 $name = $project_timestamp = $description = "";
+$app_user_id = $project_id = $role_id = null;
 
+/*Extract the current data from DB*/
 if(isset($_POST['updateProject'])){
     $id= $_POST['id'];
 
@@ -28,9 +29,17 @@ if(isset($_POST['updateProject'])){
     $project_timestamp = $project->project_timestamp;
     $description = $project->description;
 
+    /*Get all user from app_user table*/
+    $u = new Project();
+    $project_users = $u->getAllUsersForProject($db);
+
+    /*Add User to Project -> to DB*/
+    $u = new Project();
+    $project_users = $u->addProjectUsers($app_user_id, $project_id, $role_id, $db);
+
 }
 
-//changes update 
+//Submit New Changes to DB
 if(isset($_POST['updProject'])) {
     $id= $_POST['id'];
     $name = $_POST['project_name'];
@@ -75,7 +84,8 @@ if(isset($_POST['updProject'])) {
 
                             <div class="form-group row mb-3">
                                 <label class="col-sm-3 col-form-label" for="member">Member(s)</label>
-                                <input class="col-sm-9" type="" name="member[]" id="member[]" placeholder="Please Select your member">
+                                <select class="col-sm-9" type="" name="member[]" id="member[]" multiple>
+                                    <?php echo  populateProjectUser($project_users) ?></select>
                                 <span style="color:red;"><?= isset($members_err) ? $members_err : ''; ?></span>
                             </div>
 

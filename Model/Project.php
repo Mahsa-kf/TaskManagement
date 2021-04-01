@@ -56,4 +56,27 @@ class Project
         $pst->execute();
         return $pst->fetch(\PDO::FETCH_OBJ);
     }
+
+    public function getAllUsersForProject($db){
+        $sql = "SELECT * FROM app_user";
+        $pdostm = $db->prepare($sql);
+        $pdostm->execute();
+        $project_users = $pdostm->fetchAll(PDO::FETCH_OBJ);
+        return $project_users;
+    }
+
+    public function addProjectUsers($app_user_id, $project_id, $role_id, $db)
+    {
+        $sql = "INSERT INTO project_user (app_user_id, project_id, role_id) 
+              VALUES (:app_user_id, :project_id, :role_id)";
+        $pst = $db->prepare($sql);
+
+        $pst->bindParam(':app_user_id', $app_user_id);
+        $pst->bindParam(':project_id', $project_id);
+        $pst->bindParam(':role_id', $role_id);
+        var_dump($app_user_id, $project_id, $role_id);
+        $count = $pst->execute();
+        return $count;
+    }
+
 }
