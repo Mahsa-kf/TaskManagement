@@ -34,8 +34,8 @@ if(isset($_POST['updateProject'])){
     $project_users = $u->getAllUsersForProject($db);
 
     /*Add User to Project -> to DB*/
-    $u = new Project();
-    $project_users = $u->addProjectUsers($app_user_id, $project_id, $role_id, $db);
+    //$u = new Project();
+    //$project_users = $u->addProjectUsers($app_user_id, $project_id, $role_id, $db);
 
 }
 

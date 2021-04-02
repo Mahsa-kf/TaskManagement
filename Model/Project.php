@@ -65,10 +65,11 @@ class Project
         return $project_users;
     }
 
-    public function addProjectUsers($app_user_id, $project_id, $role_id, $db)
+    /*public function addProjectUsers($app_user_id, $project_id, $role_id, $db)
     {
         $sql = "INSERT INTO project_user (app_user_id, project_id, role_id) 
-              VALUES (:app_user_id, :project_id, :role_id)";
+              VALUES (:app_user_id, :project_id, :role_id)
+              ";
         $pst = $db->prepare($sql);
 
         $pst->bindParam(':app_user_id', $app_user_id);
@@ -77,6 +78,6 @@ class Project
         var_dump($app_user_id, $project_id, $role_id);
         $count = $pst->execute();
         return $count;
-    }
+    }*/
 
 }
