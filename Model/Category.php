@@ -12,9 +12,9 @@ class Category
         return $pst->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getAllCategories($dbcon){
+    public function getAllCategories($db){
         $sql = "SELECT * FROM category";
-        $pdostm = $dbcon->prepare($sql);
+        $pdostm = $db->prepare($sql);
         $pdostm->execute();
 
         $categories = $pdostm->fetchAll(PDO::FETCH_OBJ);
@@ -36,6 +36,7 @@ class Category
         $count = $pst->execute();
         return $count;
     }
+       
 
     public function deleteCategory($id, $db){
         $sql = "DELETE FROM category WHERE id = :id";
