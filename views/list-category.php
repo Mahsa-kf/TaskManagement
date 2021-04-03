@@ -18,7 +18,7 @@ $categories =  $ca->getAllCategories($dbcon);
         <p class="h1 text-center">Category List</p>
         <div class="m-1">
             <!--    Displaying Data in Table-->
-            <table class="table table-bordered tbl">
+            <table class="table tbl">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -33,17 +33,17 @@ $categories =  $ca->getAllCategories($dbcon);
                         <tr>
                             <th><?= $category->id; ?></th>
                             <td><?= $category->title; ?></td>
-                            <td><?= $category->description; ?></td>                            
+                            <td><?= $category->description; ?></td>  
+                            <td>
+                                <form action="./delete-category.php" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
+                                    <input type="hidden" name="id" value="<?= $category->id;?>"/>
+                                    <input type="submit" class="button btn btn-danger" name="deleteCategory" value="Delete"/>
+                                </form>
+                            </td>                          
                             <td>
                                 <form action="./update-category.php" method="post">
                                     <input type="hidden" name="id" value="<?= $category->id; ?>" />
                                     <input type="submit" class="button btn btn-primary" name="updateCategory" value="Update" />
-                                </form>
-                            </td>
-                            <td>
-                                <form action="./delete-category.php" method="post">
-                                    <input type="hidden" name="id" value="<?= $category->id; ?>" />
-                                    <input type="submit" class="button btn btn-danger" name="deleteCategory" value="Delete" />
                                 </form>
                             </td>
                         </tr>

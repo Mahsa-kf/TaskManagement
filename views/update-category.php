@@ -45,12 +45,11 @@ if(isset($_POST['updCategory'])) {
 <main>
     <section class="container my-5">
         <h2>Update Category</h2>        
-        <form action="" name="upd_category" method="post">
+        <form action="./list-category.php" name="upd_category" method="post">
             <div class="row">
                 <div class="col-12">
                     <div class="float-end">
-                        <button type="submit" name="cancelCategory" class="btn btn-secondary">Canceled</button>                        
-                        <button type="submit" name="deleteCategory" class="btn btn-danger">Delete</button>
+                        <button type="submit" name="cancelCategory" class="btn btn-secondary">Cancel</button>                        
                         <button type="submit" name="addCategory" class="btn btn-success">Save</button>
                     </div>
                 </div>
