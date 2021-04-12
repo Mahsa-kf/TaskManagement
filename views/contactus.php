@@ -6,7 +6,7 @@ require("./partials/header.php");
 insertHeader();
 
 // Used this associated array for select
-$subjects = ['==Please Select==' =>'select', 'About this product' => 'product', 'About customer service' => 'service', 'About Media' => 'media', 'Others' => 'others'];
+$subjects = ['select' => '==Please Select==','product' => 'About this product', 'service' => 'About customer service', 'media' => 'About Media', 'others' => 'Others'];
 
 $count = 0;
    
@@ -96,7 +96,7 @@ $count = 0;
                     <div class="form-group">
                     <div class="label"><label class="col-form-label" for="name">Name *</label><span class="errorMsg"><?= isset($nameError) ? $nameError : ''; ?></span></div>
                         <!-- value="<?php echo $_POST['name']; ?>" -->
-                        <input class="form-control" type="text" name="name" id="name" value="<?php echo $_POST['name']; ?>">
+                        <input class="form-control" type="text" name="name" id="name" value="<?php echo isset($_POST['name']); ?>">
                     </div>
                 </div>
 
@@ -104,7 +104,7 @@ $count = 0;
                     
                     <div class="form-group">
                     <div class="label"><label class="col-form-label" for="email">Email *</label><span class="errorMsg"> <?= isset($emailError) ? $emailError : ''; ?></span></div>
-                        <input class="form-control" type="email" name="email" id="email" value="<?php echo $_POST['email']; ?>">
+                        <input class="form-control" type="email" name="email" id="email" value="<?php echo isset( $_POST['email']); ?>">
                     </div>
                 </div>
 
@@ -113,7 +113,7 @@ $count = 0;
                     <div class="form-group">
                         <div class="label"><label class="col-form-label" for="phone">Phone Number - if you wish to talk with us</label> <span class="errorMsg"><?= isset($phoneError) ? $phoneError : ''; ?></span></div>
                         <!-- value="<?php echo $_POST['phone']; ?>" -->
-                        <input class="form-control" type="text" name="phone" id="phone" value="<?php echo $_POST['phone']; ?>">
+                        <input class="form-control" type="text" name="phone" id="phone" value="<?php echo isset($_POST['phone']); ?>">
                     </div>
                 </div>
 
@@ -126,7 +126,7 @@ $count = 0;
                         <?php 
                             foreach ($subjects as $key => $value){
                         ?>
-                            <option value="<?= $value ?>"<?= $_POST['subjects'] == $value ? 'selected' : ''; ?>><?php echo $key ?></option>
+                            <option value="<?= $value ?>"<?= isset($_POST['subjects']) == $value ? 'selected' : ''; ?>><?php echo $key ?></option>
                         <?php
                             }
                         ?>
@@ -138,7 +138,7 @@ $count = 0;
                     
                     <div class="form-group">
                         <div class="label"><label class="col-form-label" for="message">Tell us how we can help *</label> <span class="errorMsg"><?= isset($messageError) ? $messageError : ''; ?></span></div>
-                        <textarea class="form-control" name="message" id="message" rows="6"><?php echo htmlspecialchars($_POST['message']);?></textarea>
+                        <textarea class="form-control" name="message" id="message" rows="6"><?php echo htmlspecialchars(isset($_POST['message']));?></textarea>
                     </div>
                 </div>
 
