@@ -33,7 +33,7 @@ class Project
                 set name = :name,
                 project_timestamp = :project_timestamp,
                 description = :description
-                WHERE id = :id
+                WHERE id = :project_id
         
         ";
 
@@ -42,7 +42,7 @@ class Project
         $pst->bindParam(':name', $name);
         $pst->bindParam(':project_timestamp', $project_timestamp);
         $pst->bindParam(':description', $description);
-        $pst->bindParam(':id', $id);
+        $pst->bindParam(':project_id', $id);
 
         $count = $pst->execute();
 
@@ -65,19 +65,22 @@ class Project
         return $project_users;
     }
 
-    /*public function addProjectUsers($app_user_id, $project_id, $role_id, $db)
+    public function addProjectUsers($app_user_id, $project_id, $role_id, $db)
     {
-        $sql = "INSERT INTO project_user (app_user_id, project_id, role_id) 
-              VALUES (:app_user_id, :project_id, :role_id)
-              ";
-        $pst = $db->prepare($sql);
+        foreach ($app_user_id as $userId) {
+            $sql = "INSERT INTO project_user (app_user_id, project_id, role_id) 
+                  VALUES (:app_user_id, :project_id, :role_id)
+                  ";
+            $pst = $db->prepare($sql);
 
-        $pst->bindParam(':app_user_id', $app_user_id);
-        $pst->bindParam(':project_id', $project_id);
-        $pst->bindParam(':role_id', $role_id);
-        var_dump($app_user_id, $project_id, $role_id);
-        $count = $pst->execute();
+            $pst->bindParam(':app_user_id', $userId);
+            $pst->bindParam(':project_id', $project_id);
+            $pst->bindParam(':role_id', $role_id);
+
+            $count = $pst->execute();
+        }
+
         return $count;
-    }*/
+    }
 
 }
