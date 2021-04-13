@@ -10,6 +10,20 @@ function populateProjectUser($project_users, $select = ""){
     return $html_dropdown;
 }
 
+/*function populateRoles($roles, $select = ""){
+    $html_dropdown = "";
+    foreach ($roles as $role) {
+        $selected = ($select == $roles->role) ? "selected" : "";
+        $html_dropdown .= "<option $selected value='$role->id> $role->description</option>";
+    }
+
+    return $html_dropdown;
+}
+
+/*<?php foreach($users as $user): ?>
+        <option value="<?= $user['id']; ?>"><?= $user['name']; ?></option>
+    <?php endforeach; ?>*/
+
 /*function checkboxProjectUser($project_users){
     $html_checkbox = "";
     foreach ($project_users as $project_user) {

@@ -60,13 +60,19 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                             <p class="card-text"><?= $project->description; ?>.</p>
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="col-12 col-sm-4 col-md-4">
                                         <form action="./update-project.php" method="post">
                                             <input type="hidden" name="id" value="<?= $project->id; ?>"/>
                                             <input type="submit" class="button btn btn-primary" name="updateProject" value="Update"/>
                                         </form>
                                     </div>
-                                    <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="col-12 col-sm-4 col-md-4">
+                                        <form action="./add-member.php?id=<?=  $project->id; ?>" method="post">
+                                            <input type="hidden" name="id" value="<?=  $project->id; ?>"/>
+                                            <input type="submit" class="button btn btn-info" name="addMember" value="Member"/>
+                                        </form>
+                                    </div>
+                                    <div class="col-12 col-sm-4 col-md-4">
                                         <form action="./delete-project.php" method="post">
                                             <input type="hidden" name="id" value="<?=  $project->id; ?>"/>
                                             <input type="submit" class="button btn btn-danger" name="deleteProject" value="Delete"/>
