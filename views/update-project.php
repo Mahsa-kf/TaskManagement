@@ -13,9 +13,15 @@ require_once '../Model/Database.php';
 require_once '../Model/ProjectOverview.php';
 require("user-function.php");
 
-$name = $project_timestamp = $description = "";
 
-//$app_user_id = $project_id = null;
+//Declare variables for empty string, error message
+$name = "";
+$project_timestamp = "";
+$description = "";
+//$projectNameErr = "Please enter a project name";
+//$projectTimestampErr = "Please select the start time for this project";
+//$projectDescErr = "Please enter a description about this project";
+
 
 /*Extract the current data from DB*/
 if (isset($_POST['updateProject'])) {
@@ -30,28 +36,33 @@ if (isset($_POST['updateProject'])) {
     $project_timestamp = $project->project_timestamp;
     $description = $project->description;
 
-    /*Get all user from app_user table*/
-    $u = new Project();
-    $project_users = $u->getAllUsersForProject($db);
-
-
 }
 
 //Submit New Changes to DB
 if (isset($_POST['updProject'])) {
+    //Project ID
     $project_id = $_POST['id'];
+    if ($_POST['id'] == "") {
+        $projectIdErr = "Please re-confirm your project id";
+    }
     $name = $_POST['project_name'];
+    if ($_POST['project_name'] == "") {
+        $projectNameErr = "Please enter a project name";
+    }
     $project_timestamp = $_POST['project_timestamp'];
+    if ($_POST['project_timestamp'] == "") {
+        $projectTimestampErr = "Please select the start time for this project";
+    }
     $description = $_POST['project_description'];
-    $role_id = 3;
-    $app_user_id = $_POST['app_user_id'];
-    $db = Database::getDb();
-    $p = new Project();
-    $projects = $p->updateProject($project_id, $name, $project_timestamp, $description, $db);
-    /*Add User to Project -> to DB*/
-    $project_users = $p->addProjectUsers($app_user_id, $project_id, $role_id, $db);
-
-//    header('Location:  projects-overview.php');
+    if ($_POST['project_description'] == "") {
+        $projectDescErr = "Please enter a description about this project";
+    }
+    if(!empty($project_id && $name && $project_timestamp && $description)) {
+        $db = Database::getDb();
+        $p = new Project();
+        $projects = $p->updateProject($project_id, $name, $project_timestamp, $description, $db);
+    }
+    header('Location:  projects-overview.php');
 }
 ?>
 <!--Main Start Here-->
@@ -63,6 +74,7 @@ if (isset($_POST['updProject'])) {
             <div>
                 <form id="add_project_form" name="form_add_project" method="POST" action="">
                     <input type="hidden" name="id" value="<?= $id; ?>"/>
+                    <span style="color:red;"><?= isset($projectIdErr) ? $projectIdErr : ''; ?></span>
                     <div class="form-group row mb-3">
                         <label class="col-sm-3 col-form-label" for="project_name">Project Name</label>
                         <input class="col-sm-9" type="text" name="project_name" id="project_name" value="<?= $name; ?>"
@@ -85,14 +97,6 @@ if (isset($_POST['updProject'])) {
                             <textarea class="form-control" name="project_description" id="project_description" rows="6"
                                       placeholder="Please provide the details of the project"><?= $description ?></textarea>
                             <span style="color:red;"><?= isset($projectDescErr) ? $projectDescErr : ''; ?></span>
-                        </div>
-
-
-                        <div class="form-group row mb-3">
-                            <label class="col-sm-3 col-form-label" for="member">Member(s)</label>
-                            <select class="col-sm-9" type="" name="app_user_id[]" id="app_user_id[]" multiple>
-                                <?php echo populateProjectUser($project_users) ?></select>
-                            <span style="color:red;"><?= isset($members_err) ? $members_err : ''; ?></span>
                         </div>
 
                         <div class="form-group my-5 text-center">

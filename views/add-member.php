@@ -20,13 +20,10 @@ $dbcon = Database::getDb();
 //Carry project ID from project-overview to this page
 $phpVariable = $_REQUEST['id'];
 
-
-echo "project: $phpVariable";
-
 //Submit New Changes to DB
 if (isset($_POST['addMember'])) {
-
-    $project_id = $_REQUEST['id'];
+//Get the project ID from url's query param
+    $project_id = $_GET['id'];
     $role_id = $_POST['role_id'];
     $app_user_id = $_POST['app_user_id'];
     $db = Database::getDb();
@@ -39,7 +36,7 @@ if (isset($_POST['addMember'])) {
     $project_details = $p->getProjectById($project_id, Database::getDb());
     $roles = $r->getAllRoles(Database::getDb());
     /*Add User to Project -> to DB*/
-    $project_users = $p->addProjectUsers($app_user_id, $project_id, $role_id, $db);
+    $project_users = $u->addProjectUsers($app_user_id, $project_id, $role_id, $db);
 
 //    header('Location:  projects-overview.php');
 }
@@ -118,7 +115,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                 </div>
             </div>
         </main>
-    </div>
+
 <?php
 insertFooter();
 ?>

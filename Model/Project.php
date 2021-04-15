@@ -3,6 +3,15 @@
 
 class Project
 {
+    public function getProjects($db){
+        $query = "SELECT *  FROM project";
+        $pdostm = $db->prepare($query);
+        $pdostm->execute();
+
+        //fetch all result
+        $results = $pdostm->fetchAll(\PDO::FETCH_OBJ);
+        return $results;
+    }
 
     public function addProject($name, $project_timestamp, $description, $db)
     {
@@ -13,7 +22,6 @@ class Project
         $pst->bindParam(':name', $name);
         $pst->bindParam(':project_timestamp', $project_timestamp);
         $pst->bindParam(':description', $description);
-        var_dump($name, $project_timestamp, $description);
         $count = $pst->execute();
         return $count;
     }
@@ -24,12 +32,13 @@ class Project
         $pst = $db->prepare($sql);
         $pst->bindParam(':id', $id);
         $count = $pst->execute();
+
         return $count;
 
     }
 
     public function updateProject($id, $name, $project_timestamp, $description, $db){
-        $sql = "Update project
+        $sql = "UPDATE project
                 set name = :name,
                 project_timestamp = :project_timestamp,
                 description = :description
@@ -58,6 +67,7 @@ class Project
         return $project_details;
     }
 
+    /* This have been move to Member Class and apply to add-member.php
     public function getAllUsersForProject($db){
         $sql = "SELECT * FROM app_user";
         $pdostm = $db->prepare($sql);
@@ -66,7 +76,8 @@ class Project
         return $project_users;
     }
 
-    public function addProjectUsers($app_user_id, $project_id, $role_id, $db)
+
+     public function addProjectUsers($app_user_id, $project_id, $role_id, $db)
     {
         foreach ($app_user_id as $userId) {
             $sql = "INSERT INTO project_user (app_user_id, project_id, role_id) 
@@ -82,6 +93,6 @@ class Project
         }
 
         return $count;
-    }
+    }*/
 
 }

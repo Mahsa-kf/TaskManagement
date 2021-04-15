@@ -1,5 +1,7 @@
 <?php
-
+//Page Title : Project Overview
+// This is a page that will show all the project related to the app_user
+//
 
 // Start or resume a session
 session_start();
@@ -20,7 +22,8 @@ $dbcon = Database::getDb();
 $p = new ProjectOverview();
 $projects =  $p->getAllProjects(Database::getDb());
 
-$Nav = new SideBar(['About Us','Work', 'Contact Us']);
+//This been replaced by Notification Feature
+//$Nav = new SideBar(['About Us','Work', 'Contact Us']);
 
 $_SESSION['user_id'] = 'James@bond.com'; //code to get rid of error msg temporarily, delete it after work has been shown to Nithya
 $upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['user_id'], $dbcon);
@@ -61,7 +64,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12 col-sm-4 col-md-4">
-                                        <form action="./update-project.php" method="post">
+                                        <form action="./update-project.php?id=<?=  $project->id; ?>" method="post">
                                             <input type="hidden" name="id" value="<?= $project->id; ?>"/>
                                             <input type="submit" class="button btn btn-primary" name="updateProject" value="Update"/>
                                         </form>
@@ -73,7 +76,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                                         </form>
                                     </div>
                                     <div class="col-12 col-sm-4 col-md-4">
-                                        <form action="./delete-project.php" method="post">
+                                        <form action="./delete-project.php?id=<?=  $project->id; ?>" method="post">
                                             <input type="hidden" name="id" value="<?=  $project->id; ?>"/>
                                             <input type="submit" class="button btn btn-danger" name="deleteProject" value="Delete"/>
                                         </form>
