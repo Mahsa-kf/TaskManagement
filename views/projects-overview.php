@@ -70,7 +70,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                                         </form>
                                     </div>
                                     <div class="col-12 col-sm-4 col-md-4">
-                                        <form action="./add-member.php?id=<?=  $project->id; ?>" method="post">
+                                        <form action="./list-member.php?id=<?=  $project->id; ?>" method="post">
                                             <input type="hidden" name="id" value="<?=  $project->id; ?>"/>
                                             <input type="submit" class="button btn btn-info" name="addMember" value="Member"/>
                                         </form>

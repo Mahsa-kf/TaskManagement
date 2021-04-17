@@ -68,4 +68,19 @@ class Member
     }
 
 
+    public function getMemberById($id, $db)
+    {
+        $sql = "SELECT app_user.id AS user_id,app_user.first_name AS first_name,app_user.last_name AS last_name,project.id AS project_id ,project.name AS project_name, role.id AS role_id, role.description AS role_description 
+                FROM project_user 
+                    JOIN app_user ON app_user.id = project_user.app_user_id 
+                    JOIN project ON project.id = project_user.project_id 
+                    JOIN role ON role.id = project_user.role_id 
+                where project_user.project_id = :id";
+        $pst = $db->prepare($sql);
+        $pst->bindParam(':id', $id);
+        $pst->execute();
+        return $pst->fetch(\PDO::FETCH_OBJ);
+    }
+
+
 }
