@@ -31,16 +31,16 @@ insertHeader();
         <div class="container">
             <div class="row">
                 <div class="col-md-6 my-2">
-                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Top FAQ" />
+                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Getting Started" />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Account Settings" />
+                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Dashboard" />
                 </div>
                 <div class="col-md-6 my-2">
                     <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Troubleshooting" />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Using TEAM C4M Task Management" />
+                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Carreer and Media Request" />
                 </div>
                 <div class="col-md-12 my-2">
                     <a href="contactus.php" class="btn btn-primary submitBtn py-2">Contact Us</a>
