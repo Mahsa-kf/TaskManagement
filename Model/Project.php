@@ -67,7 +67,7 @@ class Project
         return $project_details;
     }
 
-    /* This have been move to Member Class and apply to add-member.php
+    /* This have been move to Member Class and apply to list-member.php
     public function getAllUsersForProject($db){
         $sql = "SELECT * FROM app_user";
         $pdostm = $db->prepare($sql);

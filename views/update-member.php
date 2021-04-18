@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once '../Model/ProjectOverview.php';
 require_once '../Model/Role.php';
 require_once '../Model/Project.php';
@@ -13,32 +15,32 @@ require("./partials/header.php");
 insertHeader();
 
 //Submit New Changes to DB
-if (isset($_POST['addMember'])) {
+if (isset($_POST['updateMember'])) {
     //Extract DAta from url query and from members_table.php
     $id = $_POST['projectId'];
     $userID = $_POST['userid'];
-    $roleID = ($_POST['roleid']);
+    $roleID = $_POST['roleid'];
+    //var_dump($id,$roleID, $userID);
 
-    if ($_POST['roleid'] === "0") {
-        $roles_err = "please select role for this member";
-    } else {
-        $roleID = ($_POST['roleid']);
-    }
-
-    if(!empty($userID && $id) && $roleID != "0") {
+    if(!empty($roleID && $userID && $id)) {
         $db = Database::getDb();
 
         $r = new Role();
         $roles = $r->getAllRoles($db);
 
         $m = new Member();
-        $addUsers = $m->addMembersInProjectUser($userID, $id, $roleID, $db);
+        $updateUsers = $m->updateMembersInProjectUser($userID, $id, $roleID, $db);
         $p = new Project();
         $project_details = $p->getProjectById($id, $db);
 
         header('Location:list-member.php?id=' . $_POST['projectId']);
-    }
+   }
 
 }
 
 ?>
+
+
+
+
+

@@ -52,12 +52,12 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
             <div class="p-5 text-center">
                 <h2 class="mb-3">Projects Overview</h2>
             </div>
-            <div class="row">
+            <div class="row ">
             <?php foreach ($projects as $project) { ?>
                 <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card">
-                        <div class="card-body">
+                    <div class=" mb-4 shadow-sm ">
+                        <div class="card h-100 ">
+                        <div class="card-body ">
                             <h5 class="card-title"><?= $project->id; ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted"><?= $project->name; ?></h6>
                             <p class="card-text"><?= $project->description; ?>.</p>
@@ -70,9 +70,9 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                                         </form>
                                     </div>
                                     <div class="col-12 col-sm-4 col-md-4">
-                                        <form action="./list-member.php?id=<?=  $project->id; ?>" method="post">
+                                        <form action="list-member.php?id=<?=  $project->id; ?>" method="post">
                                             <input type="hidden" name="id" value="<?=  $project->id; ?>"/>
-                                            <input type="submit" class="button btn btn-info" name="addMember" value="Member"/>
+                                            <input type="submit" class="button btn btn-info" name="member" value="Member"/>
                                         </form>
                                     </div>
                                     <div class="col-12 col-sm-4 col-md-4">

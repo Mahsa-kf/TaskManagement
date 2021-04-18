@@ -11,7 +11,8 @@ insertHeader();
 require_once '../Model/Project.php';
 require_once '../Model/Database.php';
 require_once '../Model/ProjectOverview.php';
-require("user-function.php");
+
+
 
 
 //Declare variables for empty string, error message
