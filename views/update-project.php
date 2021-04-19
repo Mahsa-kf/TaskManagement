@@ -11,7 +11,6 @@ insertHeader();
 require_once '../Model/Project.php';
 require_once '../Model/Database.php';
 require_once '../Model/ProjectOverview.php';
-require("user-function.php");
 
 
 //Declare variables for empty string, error message
@@ -57,7 +56,7 @@ if (isset($_POST['updProject'])) {
     if ($_POST['project_description'] == "") {
         $projectDescErr = "Please enter a description about this project";
     }
-    if(!empty($project_id && $name && $project_timestamp && $description)) {
+    if (!empty($project_id && $name && $project_timestamp && $description)) {
         $db = Database::getDb();
         $p = new Project();
         $projects = $p->updateProject($project_id, $name, $project_timestamp, $description, $db);

@@ -2,15 +2,14 @@
 require_once '../Model/Project.php';
 require_once '../Model/Database.php';
 
-if(isset($_POST['id'])){
+if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
     $p = new Project();
     $count = $p->deleteProject($id, Database::getDb());
-    if($count){
+    if ($count) {
         header("Location: projects-overview.php");
-    }
-    else {
+    } else {
         echo " problem deleting";
     }
 

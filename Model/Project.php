@@ -3,7 +3,8 @@
 
 class Project
 {
-    public function getProjects($db){
+    public function getProjects($db)
+    {
         $query = "SELECT *  FROM project";
         $pdostm = $db->prepare($query);
         $pdostm->execute();
@@ -26,7 +27,8 @@ class Project
         return $count;
     }
 
-    public function deleteProject($id, $db){
+    public function deleteProject($id, $db)
+    {
         $sql = "DELETE FROM project WHERE id = :id";
 
         $pst = $db->prepare($sql);
@@ -37,7 +39,8 @@ class Project
 
     }
 
-    public function updateProject($id, $name, $project_timestamp, $description, $db){
+    public function updateProject($id, $name, $project_timestamp, $description, $db)
+    {
         $sql = "UPDATE project
                 set name = :name,
                 project_timestamp = :project_timestamp,
@@ -46,7 +49,7 @@ class Project
         
         ";
 
-        $pst =  $db->prepare($sql);
+        $pst = $db->prepare($sql);
 
         $pst->bindParam(':name', $name);
         $pst->bindParam(':project_timestamp', $project_timestamp);
@@ -58,7 +61,8 @@ class Project
         return $count;
     }
 
-    public function getProjectById($id, $db){
+    public function getProjectById($id, $db)
+    {
         $sql = "SELECT * FROM project where id = :id";
         $pst = $db->prepare($sql);
         $pst->bindParam(':id', $id);
@@ -67,7 +71,7 @@ class Project
         return $project_details;
     }
 
-    /* This have been move to Member Class and apply to add-member.php
+    /* This have been move to Member Class and apply to list-member.php
     public function getAllUsersForProject($db){
         $sql = "SELECT * FROM app_user";
         $pdostm = $db->prepare($sql);

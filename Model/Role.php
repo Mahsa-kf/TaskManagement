@@ -3,7 +3,8 @@
 
 class Role
 {
-    public function getAllRoles($db){
+    public function getAllRoles($db)
+    {
         $sql = "SELECT * FROM role";
         $pdostm = $db->prepare($sql);
         $pdostm->execute();
@@ -11,14 +12,5 @@ class Role
         return $roles;
     }
 
-    function populateRoles($roles, $select = ""){
-        $html_dropdown = "";
-        foreach ($roles as $role) {
-            $selected = ($select == $roles->role) ? "selected" : "";
-            $html_dropdown .= "<option $selected value='$role->id> $role->description</option>";
-        }
-
-        return $html_dropdown;
-    }
 
 }

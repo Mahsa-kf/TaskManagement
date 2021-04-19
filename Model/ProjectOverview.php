@@ -4,7 +4,8 @@
 class ProjectOverview
 {
 
-    public function getAllProjects($dbcon){
+    public function getAllProjects($dbcon)
+    {
         $query = "SELECT * FROM project";
         $pdostm = $dbcon->prepare($query);
         $pdostm->execute();
@@ -12,5 +13,5 @@ class ProjectOverview
         return $projects;
     }
 
-    
+
 }
