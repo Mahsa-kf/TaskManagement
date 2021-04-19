@@ -31,19 +31,16 @@ insertHeader();
         <div class="container">
             <div class="row">
                 <div class="col-md-6 my-2">
-                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Getting Started" />
+                    <input type="submit" class="btn btn-primary submitBtn py-2 py-4" name="faq" value="Getting Started" />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Dashboard" />
+                    <input type="submit" class="btn btn-primary submitBtn py-2 py-4" name="faq" value="Dashboard" />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Troubleshooting" />
+                    <input type="submit" class="btn btn-primary submitBtn py-2 py-4" name="faq" value="Troubleshooting" />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="submit" class="btn btn-primary submitBtn py-2" name="faq" value="Carreer and Media Request" />
-                </div>
-                <div class="col-md-12 my-2">
-                    <a href="contactus.php" class="btn btn-primary submitBtn py-2">Contact Us</a>
+                    <a href="contactus.php" class="btn btn-primary submitBtn py-2 py-4">Contact Us</a>
                 </div>
                    
             </div>

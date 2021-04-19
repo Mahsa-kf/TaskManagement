@@ -38,13 +38,13 @@ if( isset($_GET['searchSubmit'])){
         $s = new FAQ();
 
         switch ($_GET['faq']) {
-            // $_GET['faq'] value is Top FAQ
+            // $_GET['faq'] value is Getting Started
             case 'Getting Started':  
                 // Call and getFAQByCategory
                 $results = $s->getFAQByCategory("1", $db);
                 break;
 
-            // $_GET['faq'] value is Account Settings
+            // $_GET['faq'] value is Dashboard
             case 'Dashboard':
                 // Call and getFAQByCategory
                 $results = $s->getFAQByCategory("2", $db);
@@ -56,12 +56,6 @@ if( isset($_GET['searchSubmit'])){
                 $results = $s->getFAQByCategory("3", $db);
                 break;
 
-            // $_GET['faq'] value is Using TEAM C4M Task Management
-            case 'Carreer and Media Request':
-                // Call and getFAQByCategory
-                $results = $s->getFAQByCategory("4", $db);
-                //var_dump($results);
-                break;
         }
     }
 }
