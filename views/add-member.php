@@ -19,13 +19,13 @@ if (isset($_POST['addMember'])) {
     $userID = $_POST['userid'];
     $roleID = ($_POST['roleid']);
 
-    if ($_POST['roleid'] === "0") {
+    if (empty($roleID ) || $roleID  == "0") {
         $roles_err = "please select role for this member";
     } else {
         $roleID = ($_POST['roleid']);
     }
 
-    if(!empty($userID && $id) && $roleID != "0") {
+    if(!empty($userID && $id && $roleID ) && $roleID != '0') {
         $db = Database::getDb();
 
         $r = new Role();

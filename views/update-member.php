@@ -17,21 +17,23 @@ insertHeader();
 //Submit New Changes to DB
 if (isset($_POST['updateMember'])) {
     //Extract DAta from url query and from members_table.php
-    $id = $_POST['projectId'];
+    $project_id = $_POST['projectId'];
     $userID = $_POST['userid'];
     $roleID = $_POST['roleid'];
-    //var_dump($id,$roleID, $userID);
+    //var_dump($project_id,$roleID, $userID);
 
-    if(!empty($roleID && $userID && $id)) {
+    if(!empty($roleID && $userID && $project_id)) {
         $db = Database::getDb();
 
         $r = new Role();
         $roles = $r->getAllRoles($db);
 
-        $m = new Member();
-        $updateUsers = $m->updateMembersInProjectUser($userID, $id, $roleID, $db);
         $p = new Project();
-        $project_details = $p->getProjectById($id, $db);
+        $project_details = $p->getProjectById($project_id, $db);
+
+        $m = new Member();
+        $updateUsers = $m->updateMembersInProjectUser($userID, $roleID, $project_id, $db);
+
 
         header('Location:list-member.php?id=' . $_POST['projectId']);
    }

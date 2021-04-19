@@ -23,7 +23,7 @@
                         onchange="setSelectedValue<?= $user['user_id'] ?>()">
                     <option value='0'>Please select a role</option>
                     <?php foreach ($roles as $role) { ?>
-                        <span style="color:red;"><?= isset($roles_err) ? $roles_err : ''; ?></span>
+                        <span  class ="roleError" style="color:red;"><?= isset($roles_err) ? $roles_err : ''; ?></span>
                         <option value="<?= $role->id; ?>"><?= $role->description; ?></option>
                         <?php
                             if (isset($user['role_id']) && $role->id == $user['role_id']) {
@@ -37,7 +37,8 @@
                     <?php } ?>
                     <script type="text/javascript">
                         function setSelectedValue<?= $user['user_id'] ?>() {
-                            let form = document.getElementById("AddMember-<?= $user['user_id'] ?>");
+                            let addform = document.getElementById("AddMember-<?= $user['user_id'] ?>");
+                            let deleteform = document.getElementById("DeleteMember-<?= $user['user_id'] ?>");
                             let roleSelect = document.getElementById("role-<?= $user['user_id'] ?>");
                             let selectedValue = roleSelect.value;
 
@@ -45,8 +46,11 @@
                             //console.log(roleSelect);
                             //console.log(selectedValue);
 
-                            form.roleid.value = selectedValue;
+                            addform.roleid.value = selectedValue;
+                            deleteform.roleid.value = selectedValue;
                         }
+
+
                     </script>
                 </select>
 
@@ -54,25 +58,28 @@
 
             </td>
         </form>
-        <td class="row align-content-center">
-            <div class="col-12 col-sm-6 col-md-6">
-
-                <form action="<?= $actionLink?>"
-                      method="post" id="AddMember-<?= $user['user_id'] ?>">
-                    <input type="hidden" name="projectId" value="<?= $project_details->id ?>"/>
-                    <input type="hidden" name="userid" value="<?= $user['user_id']; ?>"/>
-                    <input type="hidden" name="roleid"/>
-                    <input type="submit" class="button btn btn-info" name="<?= $buttonLabel ?>"
-                           value="<?= $buttonLabel ?>"/>
-                </form>
-            </div>
-            <div class="col-12 col-sm-6 col-md-6">
-                <form action="./delete-member.php?id=<?= $project_details->id; ?>"
-                      method="post">
-                    <input type="hidden" name="projectId" value="<?= $project_details->id; ?>"/>
-                    <input type="submit" class="button btn btn-danger" name="deleteUser"
-                           value="Delete"/>
-                </form>
+        <td class=" ">
+            <div class="row text-center justify-content-center">
+                <div class="col-12 col-sm-6 col-md-6 ">
+                    <form action="<?= $actionLink?>"
+                          method="post" id="AddMember-<?= $user['user_id'] ?>">
+                        <input type="hidden" name="projectId" value="<?= $project_details->id ?>"/>
+                        <input type="hidden" name="userid" value="<?= $user['user_id']; ?>"/>
+                        <input type="hidden" name="roleid"/>
+                        <input type="submit" class="button btn btn-info" name="<?= $buttonLabel ?>"
+                               value="<?= $buttonLabel ?>"/>
+                    </form>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6"<?php if($buttonLabel == 'addMember'){ ?>style="display: none; "<?php } ?>>
+                    <form action="./delete-member.php"
+                          method="post" id="DeleteMember-<?= $user['user_id'] ?>">
+                        <input type="hidden" name="projectId" value="<?= $project_details->id ?>"/>
+                        <input type="hidden" name="userid" value="<?= $user['user_id']; ?>"/>
+                        <input type="hidden" name="roleid"/>
+                        <input type="submit" class="button btn btn-danger" name="deleteMember"
+                               value="deleteMember"/>
+                    </form>
+                </div>
             </div>
         </td>
         </tr>

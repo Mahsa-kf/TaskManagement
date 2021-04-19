@@ -31,6 +31,35 @@ $r = new Role();
 $roles = $r->getAllRoles($dbcon);
 
 
+//Submit New Changes to DB
+if (isset($_POST['addMember'])) {
+    //Extract DAta from url query and from members_table.php
+    $id = $_POST['projectId'];
+    $userID = $_POST['userid'];
+    $roleID = ($_POST['roleid']);
+
+    if ($_POST['roleid'] === "0") {
+        $roles_err = "please select role for this member";
+    } else {
+        $roleID = ($_POST['roleid']);
+    }
+
+    if(!empty($userID && $id) && $roleID != '0') {
+        $db = Database::getDb();
+
+        $r = new Role();
+        $roles = $r->getAllRoles($db);
+
+        $m = new Member();
+        $addUsers = $m->addMembersInProjectUser($userID, $id, $roleID, $db);
+        $p = new Project();
+        $project_details = $p->getProjectById($id, $db);
+
+        header('Location:list-member.php?id=' . $_POST['projectId']);
+    }
+
+}
+
 $_SESSION['user_id'] = 'James@bond.com'; //code to get rid of error msg temporarily, delete it after work has been shown to Nithya
 $upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['user_id'], $dbcon);
 
@@ -66,7 +95,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
             <?php
             function showUsersTable($users, $roles, $project_details,$actionLink, $buttonLabel)
             {
-                require('partials/members_table.php');
+                include('partials/members_table.php');
             }
 
             ?>

@@ -14,7 +14,6 @@ class Member
 
     public function addMembersInProjectUser($userId, $project_id, $role_id, $db)
     {
-        //foreach ($app_user_id as $userId) {}
         $sql = "INSERT INTO project_user (app_user_id, project_id, role_id) 
                   VALUES (:app_user_id, :project_id, :role_id)";
         $pst = $db->prepare($sql);
@@ -25,31 +24,35 @@ class Member
         return $count;
     }
 
-    public function deleteMembersInProjectUser($userId, $db)
+    public function deleteMembersInProjectUser($userID, $project_id, $db)
     {
-        $sql = "DELETE FROM project_user WHERE app_user_id = :id";
+        $sql = "DELETE FROM project_user 
+                WHERE project_user.app_user_id = :app_user_id 
+                  and project_user.project_id =:project_id
+                  
+                 ";
 
         $pst = $db->prepare($sql);
-        $pst->bindParam(':app_user_id', $userId);
+        $pst->bindParam(':app_user_id', $userID);
+        $pst->bindParam(':project_id', $project_id);
         $count = $pst->execute();
         return $count;
 
     }
 
-    public function updateMembersInProjectUser($userID, $project_id, $roleID, $db)
+    public function updateMembersInProjectUser($userID, $roleID, $project_id, $db)
     {
-        $sql = "Update project_user
-                set app_user_id = :app_user_id,
-                role_id = :role_id
-                WHERE project_id = :id
-        
+        $sql = "INSERT INTO project_user (app_user_id,role_id,project_id)
+                VALUES (:app_user_id, :role_id, :project_id) 
+                ON DUPLICATE KEY UPDATE role_id = :role_id2
         ";
 
         $pst = $db->prepare($sql);
 
         $pst->bindParam(':app_user_id', $userID);
         $pst->bindParam(':role_id', $roleID);
-        $pst->bindParam(':id', $project_id);
+        $pst->bindParam(':project_id', $project_id);
+        $pst->bindParam(':role_id2', $roleID);
 
         $count = $pst->execute();
 
