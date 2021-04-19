@@ -15,14 +15,14 @@ require("./partials/header.php");
 insertHeader();
 
 //Submit New Changes to DB
-if (isset($_POST['updateMember'])) {
+if (isset($_POST['Update'])) {
     //Extract DAta from url query and from members_table.php
     $project_id = $_POST['projectId'];
     $userID = $_POST['userid'];
     $roleID = $_POST['roleid'];
     //var_dump($project_id,$roleID, $userID);
 
-    if(!empty($roleID && $userID && $project_id)) {
+    if (!empty($roleID && $userID && $project_id)) {
         $db = Database::getDb();
 
         $r = new Role();
@@ -36,7 +36,7 @@ if (isset($_POST['updateMember'])) {
 
 
         header('Location:list-member.php?id=' . $_POST['projectId']);
-   }
+    }
 
 }
 

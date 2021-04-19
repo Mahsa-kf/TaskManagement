@@ -3,7 +3,8 @@
 
 class Role
 {
-    public function getAllRoles($db){
+    public function getAllRoles($db)
+    {
         $sql = "SELECT * FROM role";
         $pdostm = $db->prepare($sql);
         $pdostm->execute();

@@ -24,17 +24,17 @@ class Member
         return $count;
     }
 
-    public function deleteMembersInProjectUser($userID, $project_id, $db)
+    public function deleteMembersInProjectUser($userID, $project_id, $roleID, $db)
     {
         $sql = "DELETE FROM project_user 
                 WHERE project_user.app_user_id = :app_user_id 
-                  and project_user.project_id =:project_id
-                  
+                  and project_user.project_id =:project_id    
                  ";
-
+        //and project_user.role_id =:role_id
         $pst = $db->prepare($sql);
         $pst->bindParam(':app_user_id', $userID);
         $pst->bindParam(':project_id', $project_id);
+        //$pst->bindParam(':role_id', $roleID);
         $count = $pst->execute();
         return $count;
 

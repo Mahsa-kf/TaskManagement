@@ -12,14 +12,13 @@ require("./partials/footer.php");
 require("./partials/header.php");
 insertHeader();
 
-if(isset($_POST['deleteMember'])) {
+if (isset($_POST['Delete'])) {
     //Extract DAta from url query and from members_table.php
     $project_id = $_POST['projectId'];
     $userID = $_POST['userid'];
-    //$roleID = $_POST['roleid'];
+    $roleID = $_POST['roleid'];
     //var_dump($project_id,$roleID, $userID);
-    var_dump($project_id, $userID);
-    if (!empty( $userID && $project_id)) {
+    if (!empty($userID && $project_id)) {
         $db = Database::getDb();
 
         $r = new Role();
@@ -29,8 +28,8 @@ if(isset($_POST['deleteMember'])) {
         $project_details = $p->getProjectById($project_id, $db);
 
         $m = new Member();
-        $updateUsers = $m->deleteMembersInProjectUser($userID, $project_id, $db);
-
+        $updateUsers = $m->deleteMembersInProjectUser($userID, $project_id, $roleID, $db);
+        //var_dump($project_id,$roleID, $userID);
 
         header('Location:list-member.php?id=' . $_POST['projectId']);
     } else {

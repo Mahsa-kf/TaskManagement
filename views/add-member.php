@@ -13,19 +13,19 @@ require("./partials/header.php");
 insertHeader();
 
 //Submit New Changes to DB
-if (isset($_POST['addMember'])) {
+if (isset($_POST['Add'])) {
     //Extract DAta from url query and from members_table.php
     $id = $_POST['projectId'];
     $userID = $_POST['userid'];
     $roleID = ($_POST['roleid']);
 
-    if (empty($roleID ) || $roleID  == "0") {
+    if (empty($roleID) || $roleID == "0") {
         $roles_err = "please select role for this member";
     } else {
         $roleID = ($_POST['roleid']);
     }
 
-    if(!empty($userID && $id && $roleID ) && $roleID != '0') {
+    if (!empty($userID && $id && $roleID) && $roleID != '0') {
         $db = Database::getDb();
 
         $r = new Role();
