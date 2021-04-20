@@ -61,15 +61,12 @@ function insertHeader($pageTitleParam = 'Task Management',
 
     if ($navItemsParam === '' && isset($_SESSION['isLoggedIn'])) {
         $navListItemsString .='<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'
-        . $loginUser .
-    '</button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <div>' . $loginUserEmail . '</div>
-        <div><a href="./logout.php">Log out</a></div>
-      
-    </div>
-  </div>';
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'
+            . $loginUser .'</button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div>' . $loginUserEmail . '</div>
+            <div><a href="./logout.php">Log out</a></div>
+            </div></div>';
   
     }
 
