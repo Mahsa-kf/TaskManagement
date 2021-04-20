@@ -1,4 +1,7 @@
 <?php
+/*Page Title : Update on Selected Project
+ *Objectives: To view the current project's information and able to apply changes on current project.
+*/
 
 // Start or resume a session
 session_start();
@@ -17,12 +20,8 @@ require_once '../Model/ProjectOverview.php';
 $name = "";
 $project_timestamp = "";
 $description = "";
-//$projectNameErr = "Please enter a project name";
-//$projectTimestampErr = "Please select the start time for this project";
-//$projectDescErr = "Please enter a description about this project";
 
-
-/*Extract the current data from DB*/
+/*Extract the current data from DB before applying any changes*/
 if (isset($_POST['updateProject'])) {
     $id = $_POST['id'];
 
@@ -40,8 +39,7 @@ if (isset($_POST['updateProject'])) {
 //Submit New Changes to DB
 if (isset($_POST['updProject'])) {
     $flag = true;
-    //Project ID
-
+    //Obtain value of project id on URL query
     if (empty($_GET['id'])) {
         $projectIdErr = "Please re-confirm your project id";
         $flag = false;

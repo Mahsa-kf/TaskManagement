@@ -1,4 +1,7 @@
 <?php
+/*Page Title : Add Member to selected project
+ *Objectives: To view the current member(s) involved in selected project. User able to add new member to the project along with their role individually.
+*/
 require_once '../Model/ProjectOverview.php';
 require_once '../Model/Role.php';
 require_once '../Model/Project.php';

@@ -1,4 +1,7 @@
 <?php
+/*Page Title : Delete from the member list
+ *Objectives: To view the current member(s) involved in selected project. User able to delete member from current list.
+*/
 require_once '../Model/ProjectOverview.php';
 require_once '../Model/Role.php';
 require_once '../Model/Project.php';

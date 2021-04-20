@@ -1,4 +1,8 @@
 <?php
+/*Page Title : Update on Member List
+ *Objectives: To view the current member(s) involved in selected project. User able to update their role individually.
+*/
+
 session_start();
 
 require_once '../Model/ProjectOverview.php';

@@ -1,5 +1,10 @@
 <?php
+/*page -> add-member.php
+       -> delete-member.php
+       -> list-member.php
+       -> update-member.php
 
+ * method to retrieve data from role table*/
 
 class Role
 {

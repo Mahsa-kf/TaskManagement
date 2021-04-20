@@ -1,7 +1,8 @@
 <?php
-//Page Title : Project Overview
-// This is a page that will show all the project related to the app_user
-//
+/*Page Title : Project Overview
+ *Objectives: To view a list of projects that user created,able to update or delete the project from the list.
+ * User able to access to list of member from this page by clicking 'Member' button.
+*/
 
 // Start or resume a session
 session_start();
@@ -19,11 +20,10 @@ insertHeader();
 //session_start();
 
 $dbcon = Database::getDb();
+
+//To obtain all of the projects for the logged in user.
 $p = new ProjectOverview();
 $projects = $p->getAllProjects(Database::getDb());
-
-//This been replaced by Notification Feature
-//$Nav = new SideBar(['About Us','Work', 'Contact Us']);
 
 $_SESSION['user_id'] = 'James@bond.com'; //code to get rid of error msg temporarily, delete it after work has been shown to Nithya
 $upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['user_id'], $dbcon);

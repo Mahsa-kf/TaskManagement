@@ -1,5 +1,7 @@
 <?php
-
+/*Page Title : Create New Project
+ *Objectives: To create a new project with information including, project name, start date and description..
+*/
 // Start or resume a session
 session_start();
 

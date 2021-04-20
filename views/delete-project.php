@@ -1,4 +1,7 @@
 <?php
+/*Page Title : Delete project from project-overview list
+ *Objectives: To view the current projects. User able to delete project individually.
+*/
 require_once '../Model/Project.php';
 require_once '../Model/Database.php';
 

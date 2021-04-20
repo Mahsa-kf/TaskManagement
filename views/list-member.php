@@ -56,13 +56,13 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
             <div class=" py-5 bg-light ">
                 <div class="container">
                     <div class="p-5 text-center">
-                        <h3 class="mb-3">Project Name :
-                            <input type="hidden" value="<?= $id; ?>"/><?php echo $project_details->name ?> </h3>
-                        <h2 class="mb-3">Update Members</h2>
+                        <h2 class="mb-3 ">Project Name :
+                            <input type="hidden" value="<?= $id; ?>"/><?php echo $project_details->name ?> </h2>
+                        <div><h2 class="mb-3 pt-3">List of Members</h2></div>
                     </div>
                     <?php showUsersTable($users, $roles, $project_details, './update-member.php', 'Update','submit'); ?>
                     <div class="container ">
-                        <h2 class="mb-3 ">Add Members</h2>
+                        <div class="pt-3"><h2 class="mb-3 ">Add Members</h2></div>
                         <?php showUsersTable($remainingMembers, $roles, $project_details, './add-member.php', 'Add','button'); ?>
                     </div>
                 </div>
@@ -78,7 +78,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
 
 
                 <div class="m-5">
-                    <a href="projects-overview.php" class="button btn btn-info">Back to List of Projects</a>
+                    <a href="projects-overview.php" class="button btn btn-secondary">Back to List of Projects</a>
                 </div>
 
 
