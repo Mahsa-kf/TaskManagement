@@ -1,6 +1,6 @@
 <?php
-// namespace TaskManagement\Model;
-
+/*page -> project-overview.php
+ * method to retrieve data from project table*/
 class ProjectOverview
 {
 

@@ -1,5 +1,7 @@
 <?php
-
+/*Page Title : Create New Project
+ *Objectives: To create a new project with information including, project name, start date and description..
+*/
 // Start or resume a session
 session_start();
 
@@ -15,28 +17,33 @@ require_once '../Model/Database.php';
 $name = $project_timestamp = $description = "";
 
     if(isset($_POST['addProject'])) {
+        $flag = true;
 
         if(empty($_POST['project_name'])){
-            $projectNameErr = "Please input your porject name";   
+            $projectNameErr = "Please input your project name";
+            $flag = false;
         } else {
             $name = $_POST['project_name'];
         }
         if(empty($_POST['project_timestamp'])){
-            $projectTimestampErr = "Please select the start date";   
+            $projectTimestampErr = "Please select the start date";
+            $flag = false;
         } else {
             $project_timestamp = $_POST['project_timestamp'];
         }
         if(empty($_POST['project_description'])){
             $projectDescErr = "Please input your project description";
+            $flag = false;
         }else {
             $description = $_POST['project_description'];
         }
+         if($flag) {
+             $db = Database::getDb();
+             $p = new Project();
+             $projects = $p->addProject($name, $project_timestamp, $description, $db);
 
-        $db = Database::getDb();
-        $p = new Project();
-        $projects = $p->addProject($name, $project_timestamp, $description, $db);
-
-        header('Location: projects-overview.php');
+             header('Location: projects-overview.php');
+         }
     }
 
     

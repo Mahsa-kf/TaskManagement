@@ -1,5 +1,10 @@
 <?php
-// namespace TaskManagement\Model;
+/*page -> add-member.php
+       -> delete-member.php
+       -> list-member.php
+       -> update-member.php
+
+ * method to create/ retrieve/edit/delete data for/from app_user, project, role, project_user tables*/
 
 class Member
 {

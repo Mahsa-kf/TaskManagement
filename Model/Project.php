@@ -1,18 +1,16 @@
 <?php
-// namespace TaskManagement\Model;
+/*page -> add-member.php
+       -> delete-member.php
+       -> delete-project.php
+       -> list-member.php
+       -> new-project.php
+       -> update-member.php
+       -> update-project.php
+
+ * method to retrieve/edit/delete data from project table*/
 
 class Project
 {
-    public function getProjects($db)
-    {
-        $query = "SELECT *  FROM project";
-        $pdostm = $db->prepare($query);
-        $pdostm->execute();
-
-        //fetch all result
-        $results = $pdostm->fetchAll(\PDO::FETCH_OBJ);
-        return $results;
-    }
 
     public function addProject($name, $project_timestamp, $description, $db)
     {
@@ -71,32 +69,5 @@ class Project
         return $project_details;
     }
 
-    /* This have been move to Member Class and apply to list-member.php
-    public function getAllUsersForProject($db){
-        $sql = "SELECT * FROM app_user";
-        $pdostm = $db->prepare($sql);
-        $pdostm->execute();
-        $project_users = $pdostm->fetchAll(PDO::FETCH_OBJ);
-        return $project_users;
-    }
-
-
-     public function addProjectUsers($app_user_id, $project_id, $role_id, $db)
-    {
-        foreach ($app_user_id as $userId) {
-            $sql = "INSERT INTO project_user (app_user_id, project_id, role_id) 
-                  VALUES (:app_user_id, :project_id, :role_id)
-                  ";
-            $pst = $db->prepare($sql);
-
-            $pst->bindParam(':app_user_id', $userId);
-            $pst->bindParam(':project_id', $project_id);
-            $pst->bindParam(':role_id', $role_id);
-
-            $count = $pst->execute();
-        }
-
-        return $count;
-    }*/
 
 }
