@@ -14,18 +14,27 @@ insertHeader();
 
 //Submit New Changes to DB
 if (isset($_POST['Add'])) {
+    $flag = true;
     //Extract DAta from url query and from members_table.php
-    $id = $_POST['projectId'];
-    $userID = $_POST['userid'];
-    $roleID = ($_POST['roleid']);
-
-    if (empty($roleID) || $roleID == "0") {
-        $roles_err = "please select role for this member";
+    if(empty($_POST['projectId'])){
+        $projectIdErr = "Please input your project name";
+        $flag = false;
     } else {
+        $id = $_POST['projectId'];
+    }
+    if(empty($_POST['userid'])){
+        $addUserErr = "Please select the start date";
+        $flag = false;
+    } else {
+        $userID = $_POST['userid'];
+    }
+    if(empty($_POST['roleid'] || ($_POST['roleid']== "0") )){
+        $roles_err = "please select role for this member";
+        $flag = false;
+    }else {
         $roleID = ($_POST['roleid']);
     }
-
-    if (!empty($userID && $id && $roleID) && $roleID != '0') {
+    if ($flag) {
         $db = Database::getDb();
 
         $r = new Role();

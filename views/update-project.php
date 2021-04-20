@@ -39,29 +39,43 @@ if (isset($_POST['updateProject'])) {
 
 //Submit New Changes to DB
 if (isset($_POST['updProject'])) {
+    $flag = true;
     //Project ID
-    $project_id = $_POST['id'];
-    if ($_POST['id'] == "") {
+
+    if (empty($_GET['id'])) {
         $projectIdErr = "Please re-confirm your project id";
+        $flag = false;
+    } else {
+        $project_id = $_GET['id'];
     }
-    $name = $_POST['project_name'];
-    if ($_POST['project_name'] == "") {
+    if (empty($_POST['project_name'])) {
         $projectNameErr = "Please enter a project name";
+        $flag = false;
+    } else {
+        $name = $_POST['project_name'];
     }
-    $project_timestamp = $_POST['project_timestamp'];
-    if ($_POST['project_timestamp'] == "") {
+
+    if (empty($_POST['project_timestamp'])) {
         $projectTimestampErr = "Please select the start time for this project";
+        $flag = false;
+    } else  {
+        $project_timestamp = $_POST['project_timestamp'];
     }
-    $description = $_POST['project_description'];
+
     if ($_POST['project_description'] == "") {
         $projectDescErr = "Please enter a description about this project";
+        $flag = false;
+    } else {
+        $description = $_POST['project_description'];
     }
-    if (!empty($project_id && $name && $project_timestamp && $description)) {
+    if ($flag) {
         $db = Database::getDb();
         $p = new Project();
         $projects = $p->updateProject($project_id, $name, $project_timestamp, $description, $db);
+
+        header('Location:  projects-overview.php');
     }
-    header('Location:  projects-overview.php');
+
 }
 ?>
 <!--Main Start Here-->
@@ -72,7 +86,7 @@ if (isset($_POST['updProject'])) {
             <h2>Update Project</h2>
             <div>
                 <form id="add_project_form" name="form_add_project" method="POST" action="">
-                    <input type="hidden" name="id" value="<?= $id; ?>"/>
+
                     <span style="color:red;"><?= isset($projectIdErr) ? $projectIdErr : ''; ?></span>
                     <div class="form-group row mb-3">
                         <label class="col-sm-3 col-form-label" for="project_name">Project Name</label>

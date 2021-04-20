@@ -84,16 +84,16 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                             <input type="hidden" value="<?= $id; ?>"/><?php echo $project_details->name ?> </h3>
                         <h2 class="mb-3">Update Members</h2>
                     </div>
-                    <?php showUsersTable($users, $roles, $project_details, './update-member.php', 'Update'); ?>
+                    <?php showUsersTable($users, $roles, $project_details, './update-member.php', 'Update', 'submit'); ?>
                     <div class="container ">
                         <h2 class="mb-3 ">Add Members</h2>
-                        <?php showUsersTable($remainingMembers, $roles, $project_details, './add-member.php', 'Add'); ?>
+                        <?php showUsersTable($remainingMembers, $roles, $project_details, './add-member.php', 'Add', 'submit'); ?>
                     </div>
                 </div>
 
 
                 <?php
-                function showUsersTable($users, $roles, $project_details, $actionLink, $buttonLabel)
+                function showUsersTable($users, $roles, $project_details, $actionLink, $buttonLabel, $actionButton)
                 {
                     include('partials/members_table.php');
                 }
