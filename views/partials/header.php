@@ -1,5 +1,8 @@
 <?php
 
+require_once '../Model/Authentication.php';
+require_once '../Model/Database.php';
+
 // The insertHeader() function creates a header bar and navigation menu. The function will accept 6 arguments as parameters: PageTitle (string), Navigation menu items (associative array), Path to CSS file (string), Path to JS file (string), Path to the Bootstrap CSS file (string), and Path to the Bootstrap JS file (string). If no arguments are supplied, the function will use its own default values. The function outputs the HTML code for the header.
 
 function insertHeader($pageTitleParam = 'Task Management',
@@ -7,7 +10,7 @@ function insertHeader($pageTitleParam = 'Task Management',
                       $cssPathParam = '../style/global.css',
                       $jsPathParam = '',
                       $bootstrapCssPathParam = '../css/bootstrap.min.css',
-                      $bootstrapJsPathParam = '../js/bootstrap.min.js') {
+                      $bootstrapJsPathParam = '../js/bootstrap.bundle.min.js') {
 
     $pageTitle = $pageTitleParam;
     $navItems = $navItemsParam;
@@ -28,12 +31,23 @@ function insertHeader($pageTitleParam = 'Task Management',
     }
 
     if ($navItemsParam === '' && isset($_SESSION['isLoggedIn'])) {
+        $db = Database::getDb();
+    
+        // Create an interface of a class
+        $s = new Authentication();
+
+        // call and return getUserData
+        $user =  $s->getUserData($_SESSION['email'], $db);
+        
+        $loginUser = $user['first_name'] . " " . $user['last_name'];
+        $loginUserEmail = $user['email_address'];
+        // $loginUserInitial = substr($user['first_name'], 0, 1) . " " . substr($user['last_name'], 0, 1);
+
         $navItems = [
                         'Projects Overview' => './projects-overview.php',
                         'Create New Project' => './new-project.php',
                         'Add Category' => './add-category.php',
-                        'Task Board' => './task-board.php',
-                        'Logout' => './logout.php'
+                        'Task Board' => './task-board.php'
                     ];
     }    
 
@@ -44,6 +58,23 @@ function insertHeader($pageTitleParam = 'Task Management',
     foreach ($navItems as $linkName => $Uri) {
         $navListItemsString .= "<li class=\"nav-item\"><a class=\"nav-link\" href=\"$Uri\">$linkName</a></li>";
     }
+
+    if ($navItemsParam === '' && isset($_SESSION['isLoggedIn'])) {
+        $navListItemsString .='<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'
+        . $loginUser .
+    '</button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <div>' . $loginUserEmail . '</div>
+        <div><a href="./logout.php">Log out</a></div>
+      
+    </div>
+  </div>';
+  
+    }
+
+    
+ 
 
     echo <<<HEADER
     <!DOCTYPE html>

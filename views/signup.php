@@ -42,7 +42,7 @@ if(isset($_POST['submit'])){
         session_regenerate_id(true); //generate and replace new session_id
 
         // Set email address for session
-        $_SESSION['EMAIL'] = $_POST['email'];
+        $_SESSION['email'] = $_POST['email'];
 
         // Redirect to projects-overview.php
         header("location: projects-overview.php");

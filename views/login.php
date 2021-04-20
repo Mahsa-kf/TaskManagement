@@ -16,10 +16,10 @@ insertHeader();
     $count = 0;
      
     // Validataion 
-    if (!filter_var($_POST['userName'], FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
        
         // Set error message
-        $userNameError =  "Please input valid user name";
+        $emailError =  "Please input valid email address";
         $count++;
     }
     
@@ -30,13 +30,13 @@ insertHeader();
     $s = new Authentication();
 
     // call and return getUserData
-    $user =  $s->getUserData($_POST['userName'], $db);
+    $user =  $s->getUserData($_POST['email'], $db);
     
     //Check if email address is existing in DB
     if (!isset($user['email_address'])) {
 
         // Set error message
-        $userNameError =  "Please input valid user name";
+        $emailError =  "Please input valid email address";
         $count++;
     }
     
@@ -45,8 +45,8 @@ insertHeader();
     
         //generate and replace new session_id
         session_regenerate_id(true); 
-        $_SESSION['EMAIL'] = $user['email_address'];
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['email'] = $user['email_address'];
+        // $_SESSION['username'] = $user['username'];
         $_SESSION['userId'] = $user['id'];
 
         //Set isLoggedIn indicator for dynamic content and authentication on other pages
@@ -73,11 +73,11 @@ insertHeader();
 
             <form id="loginForm" name="form_login" method="POST" action="">
            
-                <div class="errorMessage"><span class="errorMsg"><?= isset($userNameError) ? $userNameError : ''; ?></span></div>
+                <div class="errorMessage"><span class="errorMsg"><?= isset($emailError) ? $emailError : ''; ?></span></div>
                 <div class="form-group row mb-3">
-                    <label class="col-sm-3 col-form-label" for="userName">User Name</label>
-                    <!-- value="<?php echo $_POST['userName']; ?>" -->
-                    <input class="col-sm-9" type="text" name="userName" id="userName">
+                    <label class="col-sm-3 col-form-label" for="email">Email</label>
+                    <!-- value="<?php echo $_POST['email']; ?>" -->
+                    <input class="col-sm-9" type="text" name="email" id="email">
                 </div>
 
                 <div class="errorMessage"><span class="errorMsg"><?= isset($passwordError) ? $passwordError : ''; ?></span></div>

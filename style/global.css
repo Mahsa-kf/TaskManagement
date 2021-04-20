@@ -159,3 +159,33 @@ form .row {
 }
 
 
+/************ dropdown ***************/
+
+.dropdown .dropdown-menu a{
+    color: #000; 
+} 
+.dropdown .btn {
+    background: #FF9442; color:#fff;
+}
+.dropdown .btn:hover {
+    background: #FF9442; color:#fff;
+}
+.dropdown .btn:active {
+    background: #FF9442; color:#fff;
+}
+.dropdown .btn:focus {
+    background: #FF9442; color:#fff;
+}
+.dropdown-menu div {
+    display: block; 
+    width: 100%; 
+    padding: 10px 5px;
+    text-align: center;
+
+}
+
+.dropdown-menu a:hover {
+  color: #FF9442;
+
+}
+
