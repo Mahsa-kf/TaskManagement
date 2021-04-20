@@ -13,25 +13,26 @@ require("./partials/header.php");
 insertHeader();
 
 //Submit New Changes to DB
+//Validation
 if (isset($_POST['Add'])) {
     $flag = true;
     //Extract DAta from url query and from members_table.php
-    if(empty($_POST['projectId'])){
+    if (empty($_POST['projectId'])) {
         $projectIdErr = "Please input your project name";
         $flag = false;
     } else {
-        $id = $_POST['projectId'];
+        $project_id = $_POST['projectId'];
     }
-    if(empty($_POST['userid'])){
+    if (empty($_POST['userid'])) {
         $addUserErr = "Please select the start date";
         $flag = false;
     } else {
         $userID = $_POST['userid'];
     }
-    if(empty($_POST['roleid'] || ($_POST['roleid']== "0") )){
-        $roles_err = "please select role for this member";
+    if (empty($_POST['roleid'])) {
+        echo $roles_err = "please select role for this member";
         $flag = false;
-    }else {
+    } else {
         $roleID = ($_POST['roleid']);
     }
     if ($flag) {
@@ -41,10 +42,10 @@ if (isset($_POST['Add'])) {
         $roles = $r->getAllRoles($db);
 
         $m = new Member();
-        $addUsers = $m->addMembersInProjectUser($userID, $id, $roleID, $db);
+        $addUsers = $m->addMembersInProjectUser($userID, $project_id, $roleID, $db);
         $p = new Project();
-        $project_details = $p->getProjectById($id, $db);
-
+        $project_details = $p->getProjectById($project_id, $db);
+        //var_dump($userID,$roleID,$project_id);
         header('Location:list-member.php?id=' . $_POST['projectId']);
     }
 

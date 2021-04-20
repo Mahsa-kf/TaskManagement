@@ -1,5 +1,11 @@
 <?php
-
+/* Objective: to display who are the member in this project (top) and
+  * to display who are remaining that is not on the list and
+  * remainders can be added with different role and
+ * users able to update the role of the current member of the project
+ * pages that connect to this interface: members_table.php, add-member.php, update-member.php,delete-member.php
+ * Learning curve:
+*/
 session_start();
 
 require_once '../Model/ProjectOverview.php';
@@ -30,36 +36,6 @@ $remainingMembers = $m->getMembersNotInProject($id, $dbcon);
 $r = new Role();
 $roles = $r->getAllRoles($dbcon);
 
-
-//Submit New Changes to DB
-//if (isset($_POST['addMember'])) {
-//    //Extract DAta from url query and from members_table.php
-//    $id = $_POST['projectId'];
-//    $userID = $_POST['userid'];
-//    $roleID = ($_POST['roleid']);
-//
-//    if ($_POST['roleid'] === "0") {
-//        $roles_err = "please select role for this member";
-//    } else {
-//        $roleID = ($_POST['roleid']);
-//    }
-//
-//    if(!empty($userID && $id) && $roleID != '0') {
-//        $db = Database::getDb();
-//
-//        $r = new Role();
-//        $roles = $r->getAllRoles($db);
-//
-//        $m = new Member();
-//        $addUsers = $m->addMembersInProjectUser($userID, $id, $roleID, $db);
-//        $p = new Project();
-//        $project_details = $p->getProjectById($id, $db);
-//
-//        header('Location:list-member.php?id=' . $_POST['projectId']);
-//    }
-
-//}
-
 $_SESSION['user_id'] = 'James@bond.com'; //code to get rid of error msg temporarily, delete it after work has been shown to Nithya
 $upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['user_id'], $dbcon);
 
@@ -84,16 +60,16 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                             <input type="hidden" value="<?= $id; ?>"/><?php echo $project_details->name ?> </h3>
                         <h2 class="mb-3">Update Members</h2>
                     </div>
-                    <?php showUsersTable($users, $roles, $project_details, './update-member.php', 'Update', 'submit'); ?>
+                    <?php showUsersTable($users, $roles, $project_details, './update-member.php', 'Update','submit'); ?>
                     <div class="container ">
                         <h2 class="mb-3 ">Add Members</h2>
-                        <?php showUsersTable($remainingMembers, $roles, $project_details, './add-member.php', 'Add', 'submit'); ?>
+                        <?php showUsersTable($remainingMembers, $roles, $project_details, './add-member.php', 'Add','button'); ?>
                     </div>
                 </div>
 
 
                 <?php
-                function showUsersTable($users, $roles, $project_details, $actionLink, $buttonLabel, $actionButton)
+                function showUsersTable($users, $roles, $project_details, $actionLink, $buttonLabel,$buttonAction)
                 {
                     include('partials/members_table.php');
                 }

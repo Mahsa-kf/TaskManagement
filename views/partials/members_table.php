@@ -1,3 +1,12 @@
+<?php
+/* This page is rendered when it call the function on list-member.php
+ * function name: showUsersTable($users, $roles, $project_details, $actionLink, $buttonLabel,$buttonAction)
+  *Objective: to display who are the member in this project (top) and
+  * to display who are remaining that is not on the list and
+  * remainders can be added with different role.
+*/
+  ?>
+
 <?php if ($users) { ?>
     <table class="table table-hover">
         <thead class="thead-light ">
@@ -18,12 +27,11 @@
                 <td><?php echo $user['first_name'] ?></td>
                 <td><?php echo $user['last_name'] ?></td>
                 <td>
+                    <div>
                     <select class="col-sm-9" name="role-<?= $user['user_id'] ?>" id="role-<?= $user['user_id'] ?>"
                             onchange="setSelectedValue<?= $user['user_id'] ?>()">
-                        <option value="" select="selected">Please select a role</option>
+                        <option value="0" select="selected">Please select a role</option>
                         <?php foreach ($roles as $role) { ?>
-                            <span class="roleError"
-                                  style="color:red;"><?= isset($roles_err) ? $roles_err : ''; ?></span>
                             <option value="<?= $role->id; ?>"><?= $role->description; ?></option>
                         <?php
                         if (isset($user['role_id']) && $role->id == $user['role_id']) {
@@ -35,7 +43,6 @@
                         }
                             ?>
                         <?php } ?>
-                        <span style="color:red;"><?= isset($roles_err) ? $roles_err : ''; ?></span>
                         <script type="text/javascript">
                             function setSelectedValue<?= $user['user_id'] ?>() {
                                 let addform = document.getElementById("AddMember-<?= $user['user_id'] ?>");
@@ -43,19 +50,13 @@
                                 let roleSelect = document.getElementById("role-<?= $user['user_id'] ?>");
                                 let selectedValue = roleSelect.value;
 
-                                //console.log(form);
-                                //console.log(roleSelect);
-                                //console.log(selectedValue);
-
                                 addform.roleid.value = selectedValue;
                                 deleteform.roleid.value = selectedValue;
                             }
-
-
                         </script>
                     </select>
-
-
+                    </div>
+                    <span id="roleError" <?php if ( $buttonLabel == 'Add'){ ?>style="display: none; "<?php } ?>></span>
                 </td>
                 <td class=" ">
                     <div class="row text-center justify-content-center">
@@ -63,28 +64,21 @@
                             <form action="<?= $actionLink ?>" method="post" id="AddMember-<?= $user['user_id'] ?>">
                                 <input type="hidden" name="projectId" value="<?= $project_details->id ?>"/>
                                 <input type="hidden" name="userid" value="<?= $user['user_id']; ?>"/>
-                                <input type="hidden" name="roleid" value="<?= $role->id ?>"/>
-                                <input type="<?= $actionButton ?>" id="addMember" onsubmit="addMember()" class="button btn btn-info" name="<?= $buttonLabel ?>"
-                                       value="<?= $buttonLabel ?>"/>
+                                <input type="hidden" name="roleid" />
+                                <input type="hidden" name="<?= $buttonLabel ?>" value="<?= $buttonLabel ?>"/>
+                                <input type=<?= $buttonAction ?> value="<?= $buttonLabel ?>" class="button btn btn-info" onclick="addMember<?= $user['user_id'] ?>()"/>
                             </form>
                             <script type="text/javascript">
-                                function addMember() {
-                                    let  roleError = document.getElementsByClassName('roleError');
-                                    
-                                    let addform = document.getElementById("AddMember-<?= $user['user_id'] ?>");
-                                    let deleteform = document.getElementById("DeleteMember-<?= $user['user_id'] ?>");
-                                    let roleSelect = document.getElementById("role-<?= $user['user_id'] ?>");
-                                    let selectedValue = roleSelect.value;
+                                function addMember<?= $user['user_id'] ?>() {
+                                    let form = document.getElementById("AddMember-<?= $user['user_id'] ?>");
+                                    var errorMsg = document.querySelector('#roleError');
+                                    if(form.roleid.value) {
+                                        form.submit();
+                                    } else {
+                                        errorMsg.innerHTML = "please select role for this member";
+                                    }
 
-                                    //console.log(form);
-                                    //console.log(roleSelect);
-                                    //console.log(selectedValue);
-
-                                    addform.roleid.value = selectedValue;
-                                    deleteform.roleid.value = selectedValue;
                                 }
-
-
                             </script>
                         </div>
                         <div class="col-12 col-sm-6 col-md-6"
