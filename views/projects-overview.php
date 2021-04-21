@@ -7,6 +7,7 @@
 // Start or resume a session
 session_start();
 
+
 require_once '../Model/ProjectOverview.php';
 require_once '../Model/SideBar.php';
 require_once '../Model/Database.php';
@@ -63,7 +64,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                                             <p class="card-text"><?= $project->description; ?>.</p>
                                             <div class="container">
                                                 <div class="row">
-                                                    <div class="col-12 col-sm-4 col-md-4">
+                                                    <div class="col-12 col-sm-3 col-md-3">
                                                         <form action="./update-project.php?id=<?= $project->id; ?>"
                                                               method="post">
                                                             <input type="hidden" name="id"
@@ -72,7 +73,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                                                                    name="updateProject" value="Update"/>
                                                         </form>
                                                     </div>
-                                                    <div class="col-12 col-sm-4 col-md-4">
+                                                    <div class="col-12 col-sm-3 col-md-3">
                                                         <form action="list-member.php?id=<?= $project->id; ?>"
                                                               method="post">
                                                             <input type="hidden" name="id"
@@ -81,7 +82,16 @@ $notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbc
                                                                    name="member" value="Member"/>
                                                         </form>
                                                     </div>
-                                                    <div class="col-12 col-sm-4 col-md-4">
+                                                    <div class="col-12 col-sm-3 col-md-3">
+                                                        <form action="task-board.php?id=<?= $project->id; ?>"
+                                                              method="post">
+                                                            <input type="hidden" name="id"
+                                                                   value="<?= $project->id; ?>"/>
+                                                            <input type="submit" class="button btn btn-dark"
+                                                                   name="tasks" value="Tasks"/>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-12 col-sm-3 col-md-3">
                                                         <form action="./delete-project.php?id=<?= $project->id; ?>"
                                                               method="post">
                                                             <input type="hidden" name="id"

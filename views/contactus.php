@@ -6,9 +6,10 @@ require("./partials/header.php");
 insertHeader();
 
 // Used this associated array for select
-$subjects = ['select' => '==Please Select==','product' => 'About this product', 'service' => 'About customer service', 'media' => 'About Media', 'others' => 'Others'];
+$subjects = ['Select' => 'select','About this product' => 'product', 'About customer service' => 'service', 'About Media' => 'media', 'Others' => 'others'];
 
 $count = 0;
+$sent = false;
    
     // If form is submitted
     if(isset($_POST['submit'])){
@@ -64,6 +65,8 @@ $count = 0;
                 // If data is registered successfully,
                 if($count){
                     $msg = "Thank you for your email. We will contact you shortly!";
+                    $sent = true;
+
                 // If error occured,
                 }else{
                     $msg = "Error occured. Please send email us again.";
@@ -95,8 +98,7 @@ $count = 0;
                     
                     <div class="form-group">
                     <div class="label"><label class="col-form-label" for="name">Name *</label><span class="errorMsg"><?= isset($nameError) ? $nameError : ''; ?></span></div>
-                        <!-- value="<?php echo $_POST['name']; ?>" -->
-                        <input class="form-control" type="text" name="name" id="name" value="<?php echo isset($_POST['name']); ?>">
+                        <input class="form-control" type="text" name="name" id="name" value="<?php echo $_POST['name']; ?>">
                     </div>
                 </div>
 
@@ -104,7 +106,7 @@ $count = 0;
                     
                     <div class="form-group">
                     <div class="label"><label class="col-form-label" for="email">Email *</label><span class="errorMsg"> <?= isset($emailError) ? $emailError : ''; ?></span></div>
-                        <input class="form-control" type="email" name="email" id="email" value="<?php echo isset( $_POST['email']); ?>">
+                        <input class="form-control" type="email" name="email" id="email" value="<?php echo $_POST['email'] ?>">
                     </div>
                 </div>
 
@@ -112,8 +114,7 @@ $count = 0;
                     
                     <div class="form-group">
                         <div class="label"><label class="col-form-label" for="phone">Phone Number - if you wish to talk with us</label> <span class="errorMsg"><?= isset($phoneError) ? $phoneError : ''; ?></span></div>
-                        <!-- value="<?php echo $_POST['phone']; ?>" -->
-                        <input class="form-control" type="text" name="phone" id="phone" value="<?php echo isset($_POST['phone']); ?>">
+                        <input class="form-control" type="text" name="phone" id="phone" value="<?php echo $_POST['phone'] ?>">
                     </div>
                 </div>
 
@@ -121,12 +122,11 @@ $count = 0;
                     
                     <div class="form-group">
                         <div class="label"><label class="col-form-label" for="subjects">Please select the topic *</label><span class="errorMsg"> <?= isset($selectError) ? $selectError : ''; ?></span></div>
-                        <!-- value="<?php echo $_POST['subjects']; ?>" -->
                         <select class="form-control" name= "subjects" id="subject">
                         <?php 
                             foreach ($subjects as $key => $value){
                         ?>
-                            <option value="<?= $value ?>"<?= isset($_POST['subjects']) == $value ? 'selected' : ''; ?>><?php echo $key ?></option>
+                            <option value="<?= $value ?>"<?= $_POST['subjects'] == $value ? 'selected' : ''; ?>><?php echo $key ?></option>
                         <?php
                             }
                         ?>
@@ -138,13 +138,13 @@ $count = 0;
                     
                     <div class="form-group">
                         <div class="label"><label class="col-form-label" for="message">Tell us how we can help *</label> <span class="errorMsg"><?= isset($messageError) ? $messageError : ''; ?></span></div>
-                        <textarea class="form-control" name="message" id="message" rows="6"><?php echo htmlspecialchars(isset($_POST['message']));?></textarea>
+                        <textarea class="form-control" name="message" id="message" rows="6"><?php echo htmlspecialchars($_POST['message']);?></textarea>
                     </div>
                 </div>
 
                 <div class="my-3">
                     <div class="margin_top">
-                        <input type="submit" class="btn btn-primary" name="submit" value="Submit">    
+                        <input type="submit" class="btn btn-primary" name="submit" value="Submit" <?php if ($sent){ ?> disabled <?php   } ?> >    
                     </div>
                 </div>
             </form>
