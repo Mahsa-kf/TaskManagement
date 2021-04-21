@@ -15,7 +15,7 @@ class Category
         $pdostm = $db->prepare($sql);
         $pdostm->execute();
 
-        $categories = $pdostm->fetchAll(PDO::FETCH_OBJ);
+        $categories = $pdostm->fetchAll(PDO::FETCH_ASSOC);
         return $categories;
     }
 

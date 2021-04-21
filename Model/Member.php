@@ -79,6 +79,20 @@ class Member
         return $pst->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getProjectUsersList($id, $db)
+    {
+        $sql = "SELECT DISTINCT 
+                    au.id AS user_id,
+                    CONCAT (au.first_name, ' ' , au.last_name) as name
+                FROM project_user pu
+                JOIN app_user au ON au.id = pu.app_user_id 
+                WHERE pu.project_id = :id";
+        $pst = $db->prepare($sql);
+        $pst->bindParam(':id', $id);
+        $pst->execute();
+        return $pst->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function getMembersNotInProject($projectId, $db)
     {
         $sql = "SELECT app_user.id AS user_id,app_user.first_name AS first_name,app_user.last_name AS last_name 

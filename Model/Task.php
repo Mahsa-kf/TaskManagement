@@ -7,7 +7,7 @@ class Task
         $pst = $db->prepare($sql);
         $pst->bindParam(':id', $id);
         $pst->execute();
-        return $pst->fetch(PDO::FETCH_OBJ);
+        return $pst->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getProjectTasks($project_id, $db){

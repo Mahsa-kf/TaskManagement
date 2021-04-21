@@ -4,6 +4,12 @@ require("./partials/header.php");
 insertHeader();
 //insertSidebar();
 session_start();
+
+//Get project_id and user_id from session
+//$project_id = $_SESSION['project_id'];
+$project_id = 2;
+$user_id = $_SESSION['user_id'];
+
 ?>
 <main>
     <section class="container my-5">
@@ -95,16 +101,9 @@ session_start();
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </form>
     </section>
-
-
-
-
 </main>
 
 <?php
