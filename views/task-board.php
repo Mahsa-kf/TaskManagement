@@ -10,7 +10,13 @@ require_once '../Model/Task.php';
 
 $dbcon = Database::getDb();
 $t = new Task();
-$tasks =  $t->getAllTask($dbcon);
+
+//Get project_id from session and put in a variable
+//$project_id = $_SESSION['project_id'];
+$project_id = 2;
+
+//Get all the tasks in this project
+$tasks =  $t->getProjectTasks($project_id, $dbcon);
 
 ?>
 <!--Main Start Here-->
