@@ -12,7 +12,7 @@ session_start();
             <div class="row">
                 <div class="col-12">
                     <div class="float-end">
-                        <button type="button" class="btn btn-secondary">Canceled</button>                        
+                        <button type="button" class="btn btn-secondary">Cancel</button>                        
                         <button type="button" class="btn btn-danger">Delete</button>
                         <button type="button" class="btn btn-success">Save</button>
                     </div>

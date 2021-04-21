@@ -5,6 +5,13 @@ insertHeader();
 //insertSidebar();
 session_start();
 
+require_once '../Model/Database.php';
+require_once '../Model/Task.php';
+
+$dbcon = Database::getDb();
+$t = new Task();
+$tasks =  $t->getAllTask($dbcon);
+
 ?>
 <!--Main Start Here-->
 <!--Content Start here-->
@@ -41,30 +48,28 @@ session_start();
                 <thead class="table-dark">
                     <tr>
                         <th scope="col" data-field="id">ID</th>
-                        <th scope="col" data-field="title" data-filter-control="input" data-sortable="true">Title</th>
-                        <th scope="col" data-field="project" data-filter-control="select" data-sortable="true">Task group</th>
-                        <th scope="col" data-field="status" data-filter-control="select" data-sortable="true">State</th>
+                        <th scope="col" data-field="title" data-filter-control="input" data-sortable="true">TITLE</th>
+                        <th scope="col" data-field="project" data-filter-control="select" data-sortable="true">TASK GROUP</th>
+                        <th scope="col" data-field="status" data-filter-control="select" data-sortable="true">STATE</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody >
-                    <tr>
-                        <th scope="row">125</th>
-                        <td class="text-start">Create admin panel for career page</td>
-                        <td>Career page</td>
-                        <td>To do</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">126</th>
-                        <td class="text-start">Design tables for career page</td>
-                        <td>Career page</td>
-                        <td>Done</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">127</th>
-                        <td class="text-start">Design career page</td>
-                        <td>Career page</td>
-                        <td>In progress</td>
-                    </tr>
+                
+                    <?php foreach ($tasks as $task) { ?>
+                        <tr>
+                            <th><?= $task->id; ?></th>
+                            <td><?= $task->title; ?></td>
+                            <td><?= $task->category_id; ?></td>  
+                            <td><?= $task->state_id; ?></td>      
+                            <td>
+                                <form action="./task-form.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $task->id; ?>" />
+                                    <input type="submit" class="button btn btn-primary" name="updateTask" value="Details" />
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
