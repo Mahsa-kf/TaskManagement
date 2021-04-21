@@ -1,5 +1,3 @@
-
-
 <?php
 
 class Category
@@ -37,7 +35,6 @@ class Category
         return $count;
     }
        
-
     public function deleteCategory($id, $db){
         $sql = "DELETE FROM category WHERE id = :id";
 
@@ -53,12 +50,11 @@ class Category
                 set title = :title,
                 description = :description,
                 project_id = :project_id,
-                creator_user_id = creator_user_id
+                creator_user_id = :creator_user_id
                 WHERE id = :id
-        
         ";
 
-        $pst =  $db->prepare($sql);
+        $pst = $db->prepare($sql);
 
         $pst->bindParam(':title', $title);
         $pst->bindParam(':description', $description);
@@ -67,7 +63,6 @@ class Category
         $pst->bindParam(':id', $id);
 
         $count = $pst->execute();
-
         return $count;
     }
 }

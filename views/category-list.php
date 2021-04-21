@@ -35,22 +35,22 @@ $categories =  $ca->getAllCategories($dbcon);
                             <td><?= $category->title; ?></td>
                             <td><?= $category->description; ?></td>  
                             <td>
-                                <form action="./delete-category.php" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
+                                <form action="./category-delete.php" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
                                     <input type="hidden" name="id" value="<?= $category->id;?>"/>
                                     <input type="submit" class="button btn btn-danger" name="deleteCategory" value="Delete"/>
                                 </form>
                             </td>                          
                             <td>
-                                <form action="./update-category.php" method="post">
+                                <form action="./category-update.php" method="post">
                                     <input type="hidden" name="id" value="<?= $category->id; ?>" />
-                                    <input type="submit" class="button btn btn-primary" name="updateCategory" value="Update" />
+                                    <input type="submit" class="button btn btn-primary" name="getCategoryDetails" value="Update" />
                                 </form>
                             </td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
-            <a href="./add-category.php" id="btn_addCategory" class="btn btn-success btn-lg float-right">Add Category</a>
+            <a href="./category-add.php" id="btn_addCategory" class="btn btn-success btn-lg float-right">Add Category</a>
 
         </div>
     </section>
