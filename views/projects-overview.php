@@ -47,7 +47,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['userId'], $dbco
         </nav>
 
         <main role="main" class="col-md-10">
-            <div class=" container text-center py-5 bg-light">
+            <div class=" container-fluid text-center py-5 bg-light">
                 <div class="container">
                     <div class="p-5 text-center">
                         <h2 class="mb-3">Projects Overview</h2>
