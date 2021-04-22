@@ -46,7 +46,7 @@ class TaskProgress {
 
         $taskProgressElement = <<<PROGRESSHTML
             <div id="taskprogresstitlediv" class="my-1" style="background-color:#334561;color:white;height:1.5rem;">
-                <h5 class="h6">Task Progress</h5>
+                <h5 class="h6">Project Progress</h5>
             </div>
             <div class="progress border">
                 <div class="progress-bar" role="progressbar" aria-valuenow="$completionPercentage"
