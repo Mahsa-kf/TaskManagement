@@ -62,44 +62,46 @@ $notifications = Notifications::deadlineNotifications($_SESSION['userId'], $dbco
                                             <h5 class="card-title"><?= $project->id; ?></h5>
                                             <h6 class="card-subtitle mb-2 text-muted"><?= $project->name; ?></h6>
                                             <p class="card-text"><?= $project->description; ?>.</p>
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-12 col-sm-3 col-md-3">
-                                                        <form action="./update-project.php?id=<?= $project->id; ?>"
-                                                              method="post">
-                                                            <input type="hidden" name="id"
-                                                                   value="<?= $project->id; ?>"/>
-                                                            <input type="submit" class="button btn btn-primary"
-                                                                   name="updateProject" value="Update"/>
-                                                        </form>
-                                                    </div>
-                                                    <div class="col-12 col-sm-3 col-md-3">
-                                                        <form action="list-member.php?id=<?= $project->id; ?>"
-                                                              method="post">
-                                                            <input type="hidden" name="id"
-                                                                   value="<?= $project->id; ?>"/>
-                                                            <input type="submit" class="button btn btn-info"
-                                                                   name="member" value="Member"/>
-                                                        </form>
-                                                    </div>
-                                                    <div class="col-12 col-sm-3 col-md-3">
-                                                        <form action="task-board.php?id=<?= $project->id; ?>"
-                                                              method="post">
-                                                            <input type="hidden" name="id"
-                                                                   value="<?= $project->id; ?>"/>
-                                                            <input type="submit" class="button btn btn-dark"
-                                                                   name="tasks" value="Tasks"/>
-                                                        </form>
-                                                    </div>
-                                                    <div class="col-12 col-sm-3 col-md-3">
-                                                        <form action="./delete-project.php?id=<?= $project->id; ?>"
-                                                              method="post">
-                                                            <input type="hidden" name="id"
-                                                                   value="<?= $project->id; ?>"/>
-                                                            <input type="submit" class="button btn btn-danger"
-                                                                   name="deleteProject" value="Delete"/>
-                                                        </form>
-                                                    </div>
+                                            <div class="container-fluid">
+                                                <div class="row ">
+
+                                                        <div class="col-sm-3 col-lg-3">
+                                                            <form action="./update-project.php?id=<?= $project->id; ?>"
+                                                                  method="post">
+                                                                <input type="hidden" name="id"
+                                                                       value="<?= $project->id; ?>"/>
+                                                                <input type="submit" class="button btn btn-primary btn-sm btn-responsive"
+                                                                       name="updateProject" value="Update"/>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-sm-3 col-lg-3">
+                                                            <form action="list-member.php?id=<?= $project->id; ?>"
+                                                                  method="post">
+                                                                <input type="hidden" name="id"
+                                                                       value="<?= $project->id; ?>"/>
+                                                                <input type="submit" class="button btn btn-info btn-sm btn-responsive"
+                                                                       name="member" value="Member"/>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-sm-3 col-lg-3">
+                                                            <form action="task-board.php?id=<?= $project->id; ?>"
+                                                                  method="post">
+                                                                <input type="hidden" name="id"
+                                                                       value="<?= $project->id; ?>"/>
+                                                                <input type="submit" class="button btn btn-dark btn-sm btn-responsive"
+                                                                       name="tasks" value="Tasks"/>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-sm-3 col-lg-3">
+                                                            <form action="./delete-project.php?id=<?= $project->id; ?>"
+                                                                  method="post">
+                                                                <input type="hidden" name="id"
+                                                                       value="<?= $project->id; ?>"/>
+                                                                <input type="submit" class="button btn btn-danger btn-sm btn-responsive"
+                                                                       name="deleteProject" value="Delete"/>
+                                                            </form>
+                                                        </div>
+
                                                 </div>
 
                                             </div>

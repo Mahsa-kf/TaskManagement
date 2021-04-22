@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../Model/ProjectOverview.php';
+require_once '../Model/Project.php';
 require_once '../Model/SideBar.php';
 require_once '../Model/Database.php';
 require_once '../Model/UpcomingDueDates.php';
@@ -20,6 +21,9 @@ $dbcon = Database::getDb();
 //Get project_id from session and put in a variable
 //$project_id = $_SESSION['project_id'];
 $project_id = $_GET['id'];
+
+$p = new Project();
+$project = $p->getProjectById($project_id, $dbcon);
 
 //Get all the tasks in this project
 $t = new Task();
@@ -50,7 +54,7 @@ $taskProgressBar = TaskProgress::getTaskProgress($project_id, $dbcon);
         <!--name of the project-->
         <div class="container d-flex justify-content-between p-0 mb-5">
             <div>
-                <h2 >Aroma website project</h2>
+                <h2 ><?= $project->name; ?></h2>
             </div>
             <div class="col-md-4 m-0 p-2 border border-dark rounded">
                 <?= $taskProgressBar ?>

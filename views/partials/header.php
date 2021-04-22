@@ -46,8 +46,7 @@ function insertHeader($pageTitleParam = 'Task Management',
         $navItems = [
                         'Projects Overview' => './projects-overview.php',
                         'Create New Project' => './new-project.php',
-                        'Add Category' => './add-category.php',
-                        'Task Board' => './task-board.php'
+                        'Add Category' => './category-add.php'
                     ];
     }    
 
