@@ -15,7 +15,7 @@ class Notifications {
             DATE_ADD(tasks.created_date, INTERVAL tasks.estimated_time DAY) AS due_date 
             FROM tasks 
             JOIN project_user 
-                ON tasks.assigned_user_id = project_user.id 
+                ON tasks.assigned_user_id = project_user.app_user_id 
             JOIN state 
                 ON tasks.state_id = state.id
             WHERE project_user.app_user_id = :id 
@@ -27,7 +27,7 @@ class Notifications {
 
         $pdostm = $dbconn->prepare($sql);
         $pdostm->bindParam(':id', $user_id);
-        $pdostm->setFetchMode(\PDO::FETCH_OBJ); // Return the data from db as objects
+        $pdostm->setFetchMode(PDO::FETCH_OBJ); // Return the data from db as objects
 
         try {
             $pdostm->execute();
@@ -35,11 +35,11 @@ class Notifications {
 
             $tasksPastDue = []; // Array to store project id of any past due tasks
             $tasksComingDue = []; // Array to store project id of any tasks due within 7 days
-            $currentDate = date("Y-m-d");
+            $currentDate = date_create(date("Y-m-d"));
 
             foreach($queryResults as $result) {
 
-                $formattedDueDate = date("Y-m-d", $result->due_date);
+                $formattedDueDate = date_create(date("Y-m-d", strtotime($result->due_date)));
                 $dateDifference = date_diff($currentDate, $formattedDueDate);
 
                 if (intval($dateDifference->format("%R%a")) < 0) {
@@ -52,10 +52,10 @@ class Notifications {
 
             }
 
-            if (count($tasksPastDue) === 0 || count($tasksComingDue) === 0) {
+            if (count($tasksPastDue) === 0 && count($tasksComingDue) === 0) {
                 
                 $notificationDiv = <<<NOTIFICATIONDIV
-                    <div class="border rounded">
+                    <div class="border rounded mx-1 my-3 border border-dark">
                         <h3 class="h6">Notifications</h3>
                         <p>You have no tasks that are past due or will become due in the next 7 days.</p>
                     </div>
@@ -67,15 +67,14 @@ class Notifications {
                 $tasksComingDueCount = strval(count($tasksComingDue));
                 // TODO: Add code to display links to the overdue tasks by reading the project id from the arrays
                 $notificationDiv = <<<NOTIFICATIONDIV
-                    <div class="border rounded">
+                    <div class="border rounded mx-1 my-3 border border-dark">
                         <h3 class="h6">Notifications</h3>
                         <p>Tasks past due: $tasksPastDueCount</p>
-                        <p>Tasks due within 7 days: $tasksComingDueCount</p>
+                        <p>Tasks due within seven days: $tasksComingDueCount</p>
                     </div>
                     NOTIFICATIONDIV;
 
             }
-
 
             return $notificationDiv;            
         

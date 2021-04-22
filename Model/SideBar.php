@@ -1,6 +1,6 @@
 <?php
 // design data driven nav links
-Class SideBar {
+class SideBar {
     private $sidenav;
 
 

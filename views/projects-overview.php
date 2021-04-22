@@ -27,9 +27,9 @@ $p = new ProjectOverview();
 $projects = $p->getAllProjects(Database::getDb());
 
 $_SESSION['user_id'] = 'James@bond.com'; //code to get rid of error msg temporarily, delete it after work has been shown to Nithya
-$upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['user_id'], $dbcon);
+$upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['userId'], $dbcon);
 
-$notifications = Notifications::deadlineNotifications($_SESSION['user_id'], $dbcon);
+$notifications = Notifications::deadlineNotifications($_SESSION['userId'], $dbcon);
 
 ?>
 

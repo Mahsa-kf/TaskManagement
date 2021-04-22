@@ -19,7 +19,7 @@ class TaskProgress {
 
         $pdostm = $dbconn->prepare($sql);
         $pdostm->bindParam(':project_id', $project_id);
-        $pdostm->setFetchMode(\PDO::FETCH_OBJ); // Return the data from db as objects
+        $pdostm->setFetchMode(PDO::FETCH_OBJ); // Return the data from db as objects
 
         try {
         $pdostm->execute();
@@ -38,20 +38,20 @@ class TaskProgress {
         }
 
         if ($totalTasksCounter > 0) {
-            $completionPercentage = strval(round($completedTasksCounter / $totalTasksCounter));                
+            $completionPercentage = strval(round(($completedTasksCounter / $totalTasksCounter) * 100));   
         } else {
             $completionPercentage = "0";
         }
 
 
         $taskProgressElement = <<<PROGRESSHTML
-            <div class="container">
-                <h5 class="h6">$completionPercentage</h5>
-                <div class="progress border">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="$completionPercentage"
-                    aria-valuemin="0" aria-valuemax="100" style="width:$completionPercentage%">
-                    <span class="sr-only">$completionPercentage% Complete</span>
-                    </div>
+            <div id="taskprogresstitlediv" class="my-1" style="background-color:#334561;color:white;height:1.5rem;">
+                <h5 class="h6">Task Progress</h5>
+            </div>
+            <div class="progress border">
+                <div class="progress-bar" role="progressbar" aria-valuenow="$completionPercentage"
+                aria-valuemin="0" aria-valuemax="100" style="width:$completionPercentage%">
+                <span class="sr-only">$completionPercentage% Complete</span>
                 </div>
             </div>
         PROGRESSHTML;
