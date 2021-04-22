@@ -26,7 +26,6 @@ $dbcon = Database::getDb();
 $p = new ProjectOverview();
 $projects = $p->getAllProjects(Database::getDb());
 
-$_SESSION['user_id'] = 'James@bond.com'; //code to get rid of error msg temporarily, delete it after work has been shown to Nithya
 $upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['userId'], $dbcon);
 
 $notifications = Notifications::deadlineNotifications($_SESSION['userId'], $dbcon);
@@ -48,7 +47,7 @@ $notifications = Notifications::deadlineNotifications($_SESSION['userId'], $dbco
         </nav>
 
         <main role="main" class="col-md-10">
-            <div class=" py-5 bg-light">
+            <div class=" container text-center py-5 bg-light">
                 <div class="container">
                     <div class="p-5 text-center">
                         <h2 class="mb-3">Projects Overview</h2>
@@ -63,36 +62,17 @@ $notifications = Notifications::deadlineNotifications($_SESSION['userId'], $dbco
                                             <h6 class="card-subtitle mb-2 text-muted"><?= $project->name; ?></h6>
                                             <p class="card-text"><?= $project->description; ?>.</p>
                                             <div class="container-fluid">
-                                                <div class="row ">
-
-                                                        <div class="col-sm-3 col-lg-3">
-                                                            <form action="./update-project.php?id=<?= $project->id; ?>"
+                                                <div class="row justify-content-between">
+                                                        <div class="col-sm-6 col-lg-6">
+                                                            <form action="./project-details.php?id=<?= $project->id; ?>"
                                                                   method="post">
                                                                 <input type="hidden" name="id"
                                                                        value="<?= $project->id; ?>"/>
                                                                 <input type="submit" class="button btn btn-primary btn-sm btn-responsive"
-                                                                       name="updateProject" value="Update"/>
+                                                                       name="detailsProject" value="Details"/>
                                                             </form>
                                                         </div>
-                                                        <div class="col-sm-3 col-lg-3">
-                                                            <form action="list-member.php?id=<?= $project->id; ?>"
-                                                                  method="post">
-                                                                <input type="hidden" name="id"
-                                                                       value="<?= $project->id; ?>"/>
-                                                                <input type="submit" class="button btn btn-info btn-sm btn-responsive"
-                                                                       name="member" value="Member"/>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col-sm-3 col-lg-3">
-                                                            <form action="task-board.php?id=<?= $project->id; ?>"
-                                                                  method="post">
-                                                                <input type="hidden" name="id"
-                                                                       value="<?= $project->id; ?>"/>
-                                                                <input type="submit" class="button btn btn-dark btn-sm btn-responsive"
-                                                                       name="tasks" value="Tasks"/>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col-sm-3 col-lg-3">
+                                                        <div class="col-sm-6 col-lg-6">
                                                             <form action="./delete-project.php?id=<?= $project->id; ?>"
                                                                   method="post">
                                                                 <input type="hidden" name="id"

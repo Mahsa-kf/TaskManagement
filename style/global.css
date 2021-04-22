@@ -192,12 +192,3 @@ form .row {
 .text-left {
     text-align: left;
 }
-
-
-/*project-overview*/
-@media screen and (max-width:1400px) {
-    .btn-responsive {
-        display: flex;
-        flex-direction: column;
-    }
-}

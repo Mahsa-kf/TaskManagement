@@ -12,6 +12,9 @@ insertHeader();
 //insertSidebar();
 //session_start();
 require_once '../Model/Project.php';
+require_once '../Model/SideBar.php';
+require_once '../Model/UpcomingDueDates.php';
+require_once '../Model/Notifications.php';
 require_once '../Model/Database.php';
 require_once '../Model/ProjectOverview.php';
 
@@ -21,6 +24,9 @@ $name = "";
 $project_timestamp = "";
 $description = "";
 
+$dbcon = Database::getDb();
+$upcomingDueDates = UpcomingDueDates::getUpcomingDueDates($_SESSION['userId'], $dbcon);
+$notifications = Notifications::deadlineNotifications($_SESSION['userId'], $dbcon);
 /*Extract the current data from DB before applying any changes*/
 if (isset($_POST['updateProject'])) {
     $id = $_POST['id'];
@@ -78,10 +84,23 @@ if (isset($_POST['updProject'])) {
 ?>
 <!--Main Start Here-->
 <!--Content Start here-->
-<main>
-    <div class="container container-login text-center my-5">
+<div class="d-xl-flex row" id="overview-wrapper">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <!--             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                      <span>Due Dates</span>
+                    </h6> -->
+
+        <?php
+        //echo $Nav->display_SideNav();
+        echo $upcomingDueDates;
+        echo $notifications;
+        ?>
+
+    </nav>
+<main role="main" class="col-md-10">
+    <div class="container text-center my-5">
         <div class="row justify-content-md-center">
-            <h2>Update Project</h2>
+            <h2 class="mb-3">Update Project</h2>
             <div>
                 <form id="add_project_form" name="form_add_project" method="POST" action="">
 

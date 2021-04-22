@@ -1,8 +1,9 @@
 <?php
+session_start();
 require("./partials/header.php");
 require("./partials/footer.php");
 insertHeader();
-session_start();
+
 
 require_once '../Model/Database.php';
 require_once '../Model/Category.php';
