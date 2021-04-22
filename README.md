@@ -32,10 +32,10 @@ Our system will track deadlines and notify members of upcoming due dates. Our sy
 - User can create a new project with information including, project name, start date and description. Users allow to edit the project information as well as delete the project. 
 
 #### Learning Curve
--Struggling to retrieved and update project timestamp from database
+- Struggling to retrieved and update project timestamp from database
 
 #### Overcome
--Data type for project timestamp retrieved data and update data have to be the same format : "2021-03-01 10:41:06"
+- Data type for project timestamp retrieved data and update data have to be the same format : "2021-03-01 10:41:06"
 
 #### What's Next
 - Improve usability interface 
@@ -47,13 +47,13 @@ Our system will track deadlines and notify members of upcoming due dates. Our sy
 - User can add member on created project from the registered user list with designated role added too. Users allow to edit the edit the role of the member and remove member from the selected project. 
 
 #### Learning Curve
-1- Some variables do not carry the value and having issue on validation
-2- Duplicate insert of same member to the list
-3- Not able to display error message on its box 
+- Some variables do not carry the value and having issue on validation
+- Duplicate insert of same member to the list
+- Not able to display error message on its box 
 
 #### Overcome
-1-Since it is on client render part,use JavaScript to keep track on which value is selected before submission. 
-2-set user’s id and project’s id [Both are foreign key] as primary key and unique, then using INSERT …. DUPLICATE UPDATE ON query.
+- Since it is on client render part,use JavaScript to keep track on which value is selected before submission. 
+- Set user’s id and project’s id [Both are foreign key] as primary key and unique, then use INSERT …. DUPLICATE UPDATE ON query.
 
 #### What's Next
 - Try to improve my functions that render the update and add table on same page. 
