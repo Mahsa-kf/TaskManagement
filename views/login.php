@@ -73,14 +73,14 @@ insertHeader();
 
             <form id="loginForm" name="form_login" method="POST" action="">
            
-                <div class="errorMessage"><span class="errorMsg"><?= isset($emailError) ? $emailError : ''; ?></span></div>
+            <div class="col-sm-9 offset-sm-3 errorMessage errorMsg text-left"><spam><?= isset($emailError)? $emailError: ''; ?></div>
                 <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label" for="email">Email</label>
                     <!-- value="<?php echo $_POST['email']; ?>" -->
                     <input class="col-sm-9" type="text" name="email" id="email">
                 </div>
 
-                <div class="errorMessage"><span class="errorMsg"><?= isset($passwordError) ? $passwordError : ''; ?></span></div>
+                <div class="col-sm-9 offset-sm-3 errorMessage errorMsg text-left"><spam><?= isset($passwordError)? $passwordError: ''; ?></div>                
                 <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label" for="password">Password</label>
                     <!-- value="<?php echo $_POST['password']; ?>" -->

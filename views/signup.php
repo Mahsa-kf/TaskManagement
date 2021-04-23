@@ -7,46 +7,92 @@ require("./partials/footer.php");
 require("./partials/header.php");
 insertHeader();
 
-session_start();
 
 // If form is submitted
 if(isset($_POST['submit'])){
+
     $count = 0;
 
-    //Validate
-    if (!$email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        echo 'Invalid email';
+    // Connect to database
+    $db = Database::getDb();
+
+    // Create an instance of a class
+    $s = new Authentication();
+
+    $user = $s->getUserData($_POST['email'], $db);
+
+
+    //Validate first name
+    if ($_POST['fname'] == "") {
+        $fnameError =  "Please input valid first name";
         $count++;
     }
-    //password regx
-    if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password'])) {
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    //Validate last name
+    if ($_POST['lname'] == "") {
+        $lnameError =  "Please input valid last name";
+        $count++;
+    }
+
+    //Email validation
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $emailError =  "Please input valid email address";
+        $count++;
+    }
+
+    //Check if email address is existing in DB
+    if (isset($user['email_address'])) {
+
+        // Set error message
+        $emailError =  "This email address has already registered.";
+        $count++;
+
+    //Password check
+    }else{
+
+        //password regx
+        if (preg_match('/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,20}+\z/', $_POST['password'])) {
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
         // If password is no maching with regx
-    } else {
-        echo 'password must 8 character or more';
-        $count++;
+        } else {
+            $passwordError = 'Password must 8 to 20 characters, at least one uppercase letter, one lowercase letter and one number';
+            $count++;
+        }
+
     }
 
     try {
-        // Connect to database
-        $db = Database::getDb();
+        
 
-        // Create an instance of a class
-        $s = new Authentication();
+        //All validation pass and no issue,
+        if ($count == 0 ) {
 
-        // Call registerUserData
-        $user =  $s->registerUserData($_POST['fname'], $_POST['lname'], $_POST['email'], $password , $db);
 
-        // Regenerate session
-        session_regenerate_id(true); //generate and replace new session_id
+            // Call registerUserData
+            $insert = $s->registerUserData($_POST['fname'], $_POST['lname'], $_POST['email'], $password , $db);
 
-        // Set email address for session
-        $_SESSION['email'] = $_POST['email'];
+            if($insert){
+                //Session start
+                session_start();
+                
+                //Get user data for session
+                $user = $s->getUserData($_POST['email'], $db);
 
-        // Redirect to projects-overview.php
-        header("location: projects-overview.php");
-        exit();
+                // Set session 
+                $_SESSION['email'] = $user['email_address'];
+
+                // Set session 
+                $_SESSION['userId'] = $user['id'];
+
+                //Set isLoggedIn indicator for dynamic content and authentication on other pages
+                $_SESSION['isLoggedIn'] = true; 
+
+                //Redirect to projects-overview.php
+                header("location: projects-overview.php");
+                exit();
+            }
+        }
 
     } catch (\Exception $e) {
         echo $e;
@@ -62,27 +108,27 @@ if(isset($_POST['submit'])){
         <div class="my-5">
 
             <form id="signupForm" name="form_signup" method="POST" action="">
-                <div class="errorMessage hidden"><?= isset($fnameError)? $fnameError: ''; ?></div>
+                <div class="col-sm-9 offset-sm-3 errorMessage errorMsg text-left"><spam><?= isset($fnameError)? $fnameError: ''; ?></div>
                 <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label" for="fname">First Name</label>
-                    <input class="col-sm-9" type="text" name="fname" id="fname" placeholder="Please type your first name">
+                    <input class="col-sm-9" type="text" name="fname" id="fname" value="<?php echo $_POST['fname']; ?>">
                 </div>
-                <div class="errorMessage hidden"><?= isset($LnameError)? $LnameError: ''; ?></div>
+                <div class="col-sm-9 offset-sm-3 errorMessage errorMsg text-left"><spam><?= isset($lnameError)? $lnameError: ''; ?></div>
                 <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label" for="lname">Last Name</label>
-                    <input class="col-sm-9" type="text" name="lname" id="lname" placeholder="Please type your last name">
+                    <input class="col-sm-9" type="text" name="lname" id="lname" value="<?php echo $_POST['lname']; ?>">
                 </div>
 
-                <div class="errorMessage hidden"><?= isset($emailError)? $emailError: ''; ?></div>
+                <div class="col-sm-9 offset-sm-3 errorMessage errorMsg text-left"><spam><?= isset($emailError)? $emailError: ''; ?></div>
                 <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label" for="email">Email</label>
-                    <input class="col-sm-9" type="text" name="email" id="email" placeholder="Please type your email address">
+                    <input class="col-sm-9" type="text" name="email" id="email" value="<?php echo $_POST['email']; ?>">
                 </div>
 
-                <div class="errorMessage hidden"><?= isset($passwordError)? $passwordError: ''; ?></div>
+                <div class="col-sm-9 offset-sm-3 errorMessage errorMsg text-left"><spam><?= isset($passwordError)? $passwordError: ''; ?></div>                
                 <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label" for="password">Password</label>
-                    <input class="col-sm-9" type="password" name="password" id="password" placeholder="Please type your password">
+                    <input class="col-sm-9" type="password" name="password" id="password" value="<?php echo $_POST['password']; ?>">
                 </div>
 
 
