@@ -15,6 +15,15 @@ class Category
         $pdostm = $db->prepare($sql);
         $pdostm->execute();
 
+        $categories = $pdostm->fetchAll(PDO::FETCH_OBJ);
+        return $categories;
+    }
+
+    public function getCategoriesList($db){
+        $sql = "SELECT id, title FROM category";
+        $pdostm = $db->prepare($sql);
+        $pdostm->execute();
+
         $categories = $pdostm->fetchAll(PDO::FETCH_ASSOC);
         return $categories;
     }

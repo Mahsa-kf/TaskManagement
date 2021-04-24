@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once '../Model/ProjectOverview.php';
-require_once '../Model/Project.php';
 require_once '../Model/SideBar.php';
 require_once '../Model/Database.php';
 require_once '../Model/UpcomingDueDates.php';
@@ -16,34 +15,36 @@ require("./partials/header.php");
 insertHeader();
 //insertSidebar();
 
-$dbcon = Database::getDb();
+if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['projectId'])) {
+    $dbcon = Database::getDb();
 
-//Get project_id from session and put in a variable
-//$project_id = $_SESSION['project_id'];
-$project_id = $_GET['id'];
+    //Get project_id from session and put in a variable
+    $project_id = $_SESSION['projectId'];
+    $project_name = $_SESSION['projectName'];
 
-$p = new Project();
-$project = $p->getProjectById($project_id, $dbcon);
+    //Get all the tasks in this project
+    $t = new Task();
+    $tasks =  $t->getProjectTasks($project_id, $dbcon);
 
-//Get all the tasks in this project
-$t = new Task();
-$tasks =  $t->getProjectTasks($project_id, $dbcon);
+    //Get all the users in the project to display in filter drop-down
+    $m = new Member();
+    $users = $m->getProjectUsersList($project_id, $dbcon);
 
-//Get all the users in the project to display in filter drop-down
-$m = new Member();
-$users = $m->getProjectUsersList($project_id, $dbcon);
+    //Get all categories in project to display in filter drop-down
+    $ca = new Category();
+    $categories =  $ca->getCategoriesList($dbcon);
 
-//Get all categories in project to display in filter drop-down
-$ca = new Category();
-$categories =  $ca->getAllCategories($dbcon);
+    //Get all the users in the project to display in filter drop-down
+    $st = new State();
+    $states = $st->getStates($dbcon);
 
-//Get all the users in the project to display in filter drop-down
-$st = new State();
-$states = $st->getStates($dbcon);
-
-//Get the progress of the current task
-$taskProgressBar = TaskProgress::getTaskProgress($project_id, $dbcon);
-
+    //Get the progress of the current task
+    $taskProgressBar = TaskProgress::getTaskProgress($project_id, $dbcon);
+} else {
+    // Redirect to login if user id does not exist
+    header("Location: ./login.php");
+    exit();  
+}
 
 ?>
 <!--Main Start Here-->
@@ -54,7 +55,7 @@ $taskProgressBar = TaskProgress::getTaskProgress($project_id, $dbcon);
         <!--name of the project-->
         <div class="container d-flex justify-content-between p-0 mb-5">
             <div>
-                <h2 ><?= $project->name; ?></h2>
+                <h2><?= $project_name ?></h2>
             </div>
             <div class="col-md-4 m-0 p-2 border border-dark rounded">
                 <?= $taskProgressBar ?>

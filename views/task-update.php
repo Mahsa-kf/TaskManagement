@@ -7,8 +7,8 @@ session_start();
 
 //Get project_id and user_id from session
 //$project_id = $_SESSION['project_id'];
-$project_id = 2;
-$user_id = $_SESSION['user_id'];
+$project_id = $_SESSION['projectId'];;
+$user_id = $_SESSION['userId'];
 
 ?>
 <main>
