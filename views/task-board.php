@@ -34,7 +34,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
     $ca = new Category();
     $categories =  $ca->getCategoriesList($dbcon);
 
-    //Get all the users in the project to display in filter drop-down
+    //Get all states to display in filter drop-down
     $st = new State();
     $states = $st->getStates($dbcon);
 
@@ -114,7 +114,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
                             <td>
                                 <form action="./task-update.php" method="post">
                                     <input type="hidden" name="id" value="<?= $task->id; ?>" />
-                                    <input type="submit" class="button btn btn-primary" name="updateTask" value="Details" />
+                                    <input type="submit" class="button btn btn-primary" name="getTaskDetails" value="Details" />
                                 </form>
                             </td>
                         </tr>
