@@ -1,8 +1,9 @@
 <?php
+session_start();
+
 require("./partials/header.php");
 require("./partials/footer.php");
 insertHeader();
-session_start();
 
 require_once '../Model/Database.php';
 require_once '../Model/Category.php';
@@ -22,18 +23,14 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
 ?>
 <main>
     <section class="container my-5">
-
-        <div class="row">
-            <div class="col-md-8 text-left">
-                <div class="row">
-                    <h3 class="mb-0">Backlog items: <?= $project_name ?></h3>
-                </div>
-                <div class="text-left m-0">
-                    <a class="btn btn-link ps-0" href="task-board.php">TASK BOARD</a>
-                    <a class="btn btn-link ps-0" href="category-add.php">CREATE NEW Backlog Item</a>
-                </div>
+        <div class="row p-2">
+            <div class="col-md-8 text-left mb-4">
+                <h3 class="mb-0">Backlog items: <?= $project_name ?></h3>
             </div>
-
+            <div class="col-sm-4 text-right">
+                <a class="btn btn-secondary" href="task-board.php">TASK BOARD</a>
+                <a class="btn btn-success" href="category-add.php">CREATE NEW</a>
+            </div>
         </div>
         <div class="m-1">
             <!--    Displaying Data in Table-->
@@ -43,8 +40,8 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
                         <th scope="col">ID</th>
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,7 +51,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
                             <td><?= $category->title; ?></td>
                             <td><?= $category->description; ?></td>
                             <td>
-                                <form action="./category-delete.php" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
+                                <form action="./category-delete.php" method="post" onsubmit="return confirm('Do you want to delete the category?');">
                                     <input type="hidden" name="id" value="<?= $category->id; ?>" />
                                     <input type="submit" class="button btn btn-danger" name="deleteCategory" value="Delete" />
                                 </form>
@@ -69,8 +66,6 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
                     <?php } ?>
                 </tbody>
             </table>
-            <a href="./category-add.php" id="btn_addCategory" class="btn btn-success btn-lg float-right">Add Category</a>
-
         </div>
     </section>
 </main>

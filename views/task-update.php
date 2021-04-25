@@ -19,7 +19,7 @@ $t = new Task();
 
 /*Extract the current data from DB*/
 if (isset($_POST['getTaskDetails'])) {
-    
+
     $id = $_POST['id'];
 
     $task = $t->getTaskById($id, $dbcon);
@@ -34,11 +34,6 @@ if (isset($_POST['getTaskDetails'])) {
     $spent_time = $task->spent_time;
     $remaining_time = $task->remaining_time;
     $due_date = $task->due_date;
-    // $creator_user_id = $task->$creator_user_id;
-    // $project_id = $task->$project_id;
-    // $created_date = $task->$created_date;
-
-    echo $category_id;
 }
 
 //Get all the users in the project to display in the drop-down
@@ -77,22 +72,43 @@ if (isset($_POST['updTask'])) {
     if ($count) {
         header("Location: ./task-board.php");
     } else {
-        echo "problem";
+        echo "Problem in updating task";
     }
 }
 
+// Navigate to task board on Cancel
+if (isset($_POST['cancelEditTask'])) {
+    header("Location: ./task-board.php");
+}
+
+if (isset($_POST['deleteTask'])) {
+    $id = $_POST['id'];
+    
+    $db = Database::getDb();
+    
+    $t = new Task();
+    $count = $t->deleteTask($id, $db);
+
+    if($count){
+        header("Location: ./task-board.php");
+    }
+    else {
+        echo "Deleting Task";
+    }
+}
 
 ?>
 <main>
     <section class="container my-5">
         <form action="" name="taskForm" method="post">
             <div class="row">
-                <div class="col-12">
-                    <div class="float-end">
-                        <button type="button" class="btn btn-secondary">Cancel</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
-                        <button type="submit" name="updTask" class="btn btn-success">Save</button>
-                    </div>
+                <div class="col-sm-6">
+                    <h3 class="mb-0">UPDATE TASK</h3>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <button type="submit" name="cancelEditTask" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" name="deleteTask" class="btn btn-danger" onclick="return confirm('Do you want to delete the Task?');">Delete</button>
+                    <button type="submit" name="updTask" class="btn btn-success">Save</button>
                 </div>
             </div>
             <input type="hidden" id="id" name="id" value="<?= $id ?>" />

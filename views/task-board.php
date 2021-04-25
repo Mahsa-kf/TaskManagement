@@ -50,18 +50,16 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
 
 <main class="text-center">
     <section class="container my-5">
-        <div class="row">
-            <div class="col-md-8 text-left">
-                <div class="row">
-                    <h3 class="mb-0"><?= $project_name ?> Project </h3>
-                </div>
-                <div class="text-left m-0">
-                    <a class="btn btn-link ps-0" href="category-list.php">BACKLOG ITEMS</a>
-                    <a class="btn btn-link ps-0" href="task-add.php">CREATE NEW TASK</a>
+        <h3 class="mb-2 text-left">Task board: <?= $project_name ?></h3>
+        <div class="row mb-4">
+            <div class="col-md-6 text-left">
+                <div class="col-xl-10 p-2 border border-dark rounded">
+                    <?= $taskProgressBar ?>
                 </div>
             </div>
-            <div class="col-md-4 mb-2 p-2 border border-dark rounded">
-                <?= $taskProgressBar ?>
+            <div class="col-md-6 text-right mt-4">
+                <a class="btn btn-secondary" href="category-list.php">BACKLOG ITEMS</a>
+                <a class="btn btn-success" href="task-add.php">CREATE NEW TASK</a>
             </div>
         </div>
         <form class="row mb-3 task-filters">
@@ -112,8 +110,8 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
                         <tr>
                             <th><?= $task->id; ?></th>
                             <td><?= $task->title; ?></td>
-                            <td><?= $task->category_id; ?></td>
-                            <td><?= $task->state_id; ?></td>
+                            <td><?= $task->category; ?></td>
+                            <td><?= $task->state; ?></td>
                             <td class="text-right">
                                 <form action="./task-update.php" method="post">
                                     <input type="hidden" name="id" value="<?= $task->id; ?>" />

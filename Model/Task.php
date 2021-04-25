@@ -10,8 +10,28 @@ class Task
         return $pst->fetch(PDO::FETCH_OBJ);
     }
 
+    public function deleteTask($id, $db){
+        $sql = "DELETE FROM tasks WHERE id = :id";
+
+        $pst = $db->prepare($sql);
+        $pst->bindParam(':id', $id);
+        $count = $pst->execute();
+        return $count;
+    }
+
     public function getProjectTasks($project_id, $db){
-        $sql = "SELECT * FROM tasks WHERE project_id = :project_id";
+        $sql = "SELECT 
+                    t.id as id, 
+                    t.title as title, 
+                    c.title as category, 
+                    s.description as state 
+                FROM tasks t 
+                left join category c 
+                on t.category_id = c.id 
+                left join state s 
+                on t.state_id = s.id 
+                WHERE t.project_id = :project_id";
+
         $pst = $db->prepare($sql);
         $pst->bindParam(':project_id', $project_id);
         $pst->execute();
@@ -20,7 +40,7 @@ class Task
         return $tasks;
     }
 
-    public function addCategory($title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $project_id, $creator_user_id, $dbcon) {
+    public function addTask($title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $project_id, $creator_user_id, $dbcon) {
         
         $sql = "INSERT INTO tasks (title, description, assigned_user_id, state_id, category_id, priority_id, estimated_time, spent_time, remaining_time, due_date, project_id, creator_user_id, created_date) 
               VALUES (:title, :description, :assigned_user_id, :state_id, :category_id, :priority_id, :estimated_time, :spent_time, :remaining_time, :due_date, :project_id, :creator_user_id, NOW()) ";

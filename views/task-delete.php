@@ -5,19 +5,23 @@ insertHeader();
 
 
 require_once '../Model/Database.php';
-require_once '../Model/Category.php';
+require_once '../Model/Task.php';
 
 if(isset($_POST['id'])){
+    echo "zzz";
+     
     $id = $_POST['id'];
+    echo $id;
     $db = Database::getDb();
 
-    $s = new Category();
-    $count = $s->deleteCategory($id, $db);
+    $s = new Task();
+    $count = $s->deleteTask($id, $db);
+
     if($count){
         header("Location: category-list.php");
     }
     else {
-        echo "Deleting Category";
+        echo " category deleting";
     }
 
 

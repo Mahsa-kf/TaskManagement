@@ -31,7 +31,7 @@ if (isset($_POST['addCategory'])) {
         //validate title
         if ($title == "") {
             $titleErr = "Please enter category name";
-        } 
+        }
         //validate description
         if ($description == "") {
             $descriptionErr = "Please enter description!";
@@ -39,7 +39,7 @@ if (isset($_POST['addCategory'])) {
     }
 }
 
-if (isset($_POST['cancelCategory'])) {
+if (isset($_POST['cancelAddCategory'])) {
     header("Location: ./category-list.php");
 }
 
@@ -47,14 +47,14 @@ if (isset($_POST['cancelCategory'])) {
 
 <main>
     <section class="container my-5">
-        <h2>Create New Category</h2>
         <form action="" name="categoryForm" method="post">
             <div class="row">
-                <div class="col-12">
-                    <div class="float-end">
-                        <button type="submit" name="cancelCategory" class="btn btn-secondary">Cancel</button>
-                        <button type="submit" name="addCategory" class="btn btn-success">Save</button>
-                    </div>
+            <div class="col-md-8 text-left mb-4">
+                <h3 class="mb-0">CREATE NEW BACKLOG ITEM</h3>
+            </div>
+                <div class="col-sm-4 text-right">
+                    <button type="submit" name="cancelAddCategory" class="btn btn-secondary">Cancel</button>
+                     <button type="submit" name="addCategory" class="btn btn-success">Save</button>
                 </div>
             </div>
             <div class="row">

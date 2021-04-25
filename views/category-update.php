@@ -58,10 +58,12 @@ if (isset($_POST['cancelCategory'])) {
 
 <main>
     <section class="container my-5">
-        <h2>Update Category</h2>        
         <form action="" name="categoryForm" method="post">
             <div class="row">
-                <div class="col-12">
+                <div class="col-sm-6">
+                    <h3 class="mb-0">UPDATE CATEGORY</h3>
+                </div>
+                <div class="col-6">
                     <div class="float-end">
                         <button type="submit" name="cancelCategory" class="btn btn-secondary">Cancel</button>                        
                         <button type="submit" name="updCategory" class="btn btn-success">Save</button>

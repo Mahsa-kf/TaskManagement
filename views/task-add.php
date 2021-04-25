@@ -34,9 +34,9 @@ $pr = new Priority();
 $priorities = $pr->getPriorities($dbcon);
 
 $category_id = 0;
-$priority_id = 0;
-$assigned_user_id = $_SESSION['userId'];
+$priority_id = 3;
 $state_id = 1;
+$assigned_user_id = $_SESSION['userId'];
 
 //Submit New Changes to DB
 if (isset($_POST['addTask'])) {
@@ -54,7 +54,10 @@ if (isset($_POST['addTask'])) {
     $project_id = $_SESSION['projectId'];
     $creator_user_id = $_SESSION['userId'];
 
-    $count = $t->updateTask($id, $title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $dbcon);
+
+    $count = $t->addTask($title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $project_id, $creator_user_id, $dbcon);
+
+    echo $count;
 
     if ($count) {
         header("Location: ./task-board.php");
@@ -62,16 +65,23 @@ if (isset($_POST['addTask'])) {
         echo "Problem in adding new task";
     }
 }
+
+// Navigate to task board on Cancel
+if (isset($_POST['cancelEditTask'])) {
+    header("Location: ./task-board.php");
+}
 ?>
 
 <main>
     <section class="container my-5">
         <form action="" name="taskForm" method="post">
             <div class="row">
-                <div class="col-12">
+            <div class="col-sm-6">
+                    <h3 class="mb-0">CREATE NEW TASK</h3>
+                </div>
+                <div class="col-6">
                     <div class="float-end">
-                        <button type="button" class="btn btn-secondary">Cancel</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="submit" name="cancelEditTask" class="btn btn-secondary">Cancel</button>
                         <button type="submit" name="addTask" class="btn btn-success">Save</button>
                     </div>
                 </div>
