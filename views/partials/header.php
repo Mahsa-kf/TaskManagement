@@ -43,14 +43,20 @@ function insertHeader($pageTitleParam = 'Task Management',
         $loginUserEmail = $user['email_address'];
         // $loginUserInitial = substr($user['first_name'], 0, 1) . " " . substr($user['last_name'], 0, 1);
 
-        $navItems = [
-                        'Projects Overview' => './projects-overview.php',
-                        'Create New Project' => './new-project.php',
-                        'Add Category' => './category-add.php'
-                    ];
-    }    
-
-    
+        if(isset($_SESSION['projectId'])){
+            $navItems = [
+                'Projects Overview' => './projects-overview.php',
+                'Backlog Items' => './category-list.php',
+                'Task Board' => './task-board.php'
+            ];
+        } else {
+            $navItems = [
+                'Projects Overview' => './projects-overview.php',
+                'Create New Project' => './new-project.php'
+            ];
+        }
+      
+    } 
 
 
     // Create the navigation menu list items HTML code
