@@ -14,11 +14,14 @@ require_once '../Model/Database.php';
 require_once '../Model/UpcomingDueDates.php';
 require_once '../Model/Notifications.php';
 
+// Remove Project ID and Name from session
+unset($_SESSION['projectId']);
+unset($_SESSION['projectName']);
+
 require("./partials/footer.php");
 require("./partials/header.php");
 insertHeader();
 
-//session_start();
 
 if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']) {
 
@@ -39,6 +42,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']) {
 }
 
 if (isset($_POST['details'])) {
+    // Add Project ID and Name to session when project chose
     $_SESSION['projectId'] = $_POST['id'];
     $_SESSION['projectName'] = $_POST['name'];
 

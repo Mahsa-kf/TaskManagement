@@ -55,11 +55,11 @@ class Category
     }
 
     public function updateCategory($id, $title, $description, $project_id, $creator_user_id, $db){
-        $sql = "Update category
-                set title = :title,
-                description = :description,
-                project_id = :project_id,
-                creator_user_id = :creator_user_id
+        $sql = "UPDATE category
+                SET title = :title,
+                    description = :description,
+                    project_id = :project_id,
+                    creator_user_id = :creator_user_id
                 WHERE id = :id
         ";
 

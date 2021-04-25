@@ -20,7 +20,30 @@ class Task
         return $tasks;
     }
 
-    public function updateTask($id, $title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $dbcon){
+    public function addCategory($title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $project_id, $creator_user_id, $dbcon) {
+        
+        $sql = "INSERT INTO tasks (title, description, assigned_user_id, state_id, category_id, priority_id, estimated_time, spent_time, remaining_time, due_date, project_id, creator_user_id, created_date) 
+              VALUES (:title, :description, :assigned_user_id, :state_id, :category_id, :priority_id, :estimated_time, :spent_time, :remaining_time, :due_date, :project_id, :creator_user_id, NOW()) ";
+        $pst = $dbcon->prepare($sql);
+
+        $pst->bindParam(':title', $title);
+        $pst->bindParam(':description', $description);
+        $pst->bindParam(':assigned_user_id', $assigned_user_id);
+        $pst->bindParam(':state_id', $state_id);
+        $pst->bindParam(':category_id', $category_id);
+        $pst->bindParam(':priority_id', $priority_id);
+        $pst->bindParam(':estimated_time', $estimated_time);
+        $pst->bindParam(':spent_time', $spent_time);
+        $pst->bindParam(':remaining_time', $remaining_time);
+        $pst->bindParam(':due_date', $due_date);
+        $pst->bindParam(':project_id', $project_id);
+        $pst->bindParam(':creator_user_id', $creator_user_id);
+
+        $count = $pst->execute();
+        return $count;
+    }
+
+    public function updateTask($id, $title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $dbcon) {
         $sql = "UPDATE tasks
                 SET title = :title,
                     description = :description,
@@ -37,6 +60,7 @@ class Task
 
         $pst = $dbcon->prepare($sql);
 
+        $pst->bindParam(':id', $id);
         $pst->bindParam(':title', $title);
         $pst->bindParam(':description', $description);
         $pst->bindParam(':assigned_user_id', $assigned_user_id);
@@ -47,10 +71,6 @@ class Task
         $pst->bindParam(':spent_time', $spent_time);
         $pst->bindParam(':remaining_time', $remaining_time);
         $pst->bindParam(':due_date', $due_date);
-        // $pst->bindParam(':project_id', $project_id);
-        // $pst->bindParam(':creator_user_id', $creator_user_id);
-        // $pst->bindParam(':created_date', $created_date);
-        $pst->bindParam(':id', $id);
 
         $count = $pst->execute();
         return $count;

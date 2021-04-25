@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once '../Model/ProjectOverview.php';
-require_once '../Model/SideBar.php';
 require_once '../Model/Database.php';
 require_once '../Model/UpcomingDueDates.php';
 require_once '../Model/Notifications.php';
@@ -13,7 +12,6 @@ require_once '../Model/TaskProgress.php';
 
 require("./partials/header.php");
 insertHeader();
-//insertSidebar();
 
 if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['projectId'])) {
     $dbcon = Database::getDb();
@@ -43,7 +41,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
 } else {
     // Redirect to login if user id does not exist
     header("Location: ./login.php");
-    exit();  
+    exit();
 }
 
 ?>
@@ -52,16 +50,21 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
 
 <main class="text-center">
     <section class="container my-5">
-        <!--name of the project-->
-        <div class="container d-flex justify-content-between p-0 mb-5">
-            <div>
-                <h2><?= $project_name ?></h2>
+        <div class="row">
+            <div class="col-md-8 text-left">
+                <div class="row">
+                    <h3 class="mb-0"><?= $project_name ?> Project </h3>
+                </div>
+                <div class="text-left m-0">
+                    <a class="btn btn-link ps-0" href="category-list.php">BACKLOG ITEMS</a>
+                    <a class="btn btn-link ps-0" href="task-add.php">CREATE NEW TASK</a>
+                </div>
             </div>
-            <div class="col-md-4 m-0 p-2 border border-dark rounded">
+            <div class="col-md-4 mb-2 p-2 border border-dark rounded">
                 <?= $taskProgressBar ?>
             </div>
         </div>
-        <form class="row my-md-4 task-filters">
+        <form class="row mb-3 task-filters">
 
             <div class="col-md-3">
                 <select class="form-control">
@@ -73,7 +76,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
             </div>
             <div class="col-md-3">
                 <select class="form-control">
-                    <option value="0" select="selected">-- Category --</option>
+                    <option value="0" select="selected">-- Backlog Item --</option>
                     <?php foreach ($categories as $category) { ?>
                         <option value="<?= $category['id'] ?>"><?php echo $category['title'] ?></option>
                     <?php } ?>
@@ -99,7 +102,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
                     <tr>
                         <th scope="col" data-field="id">ID</th>
                         <th scope="col" data-field="title" data-filter-control="input" data-sortable="true">TITLE</th>
-                        <th scope="col" data-field="project" data-filter-control="select" data-sortable="true">TASK GROUP</th>
+                        <th scope="col" data-field="project" data-filter-control="select" data-sortable="true">BACKLOG ITEM</th>
                         <th scope="col" data-field="status" data-filter-control="select" data-sortable="true">STATE</th>
                         <th scope="col"></th>
                     </tr>
@@ -111,7 +114,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
                             <td><?= $task->title; ?></td>
                             <td><?= $task->category_id; ?></td>
                             <td><?= $task->state_id; ?></td>
-                            <td>
+                            <td class="text-right">
                                 <form action="./task-update.php" method="post">
                                     <input type="hidden" name="id" value="<?= $task->id; ?>" />
                                     <input type="submit" class="button btn btn-primary" name="getTaskDetails" value="Details" />

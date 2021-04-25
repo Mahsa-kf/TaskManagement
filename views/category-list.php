@@ -7,25 +7,44 @@ session_start();
 require_once '../Model/Database.php';
 require_once '../Model/Category.php';
 
-$dbcon = Database::getDb();
-$ca = new Category();
-$categories =  $ca->getAllCategories($dbcon);
+if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['projectId'])) {
 
+    $dbcon = Database::getDb();
+    $ca = new Category();
+    $categories =  $ca->getAllCategories($dbcon);
+
+    $project_name = $_SESSION['projectName'];
+} else {
+    // Redirect to login if user id does not exist
+    header("Location: ./login.php");
+    exit();
+}
 ?>
 <main>
     <section class="container my-5">
 
-        <p class="h1 text-center">Category List</p>
+        <div class="row">
+            <div class="col-md-8 text-left">
+                <div class="row">
+                    <h3 class="mb-0">Backlog items: <?= $project_name ?></h3>
+                </div>
+                <div class="text-left m-0">
+                    <a class="btn btn-link ps-0" href="task-board.php">TASK BOARD</a>
+                    <a class="btn btn-link ps-0" href="category-add.php">CREATE NEW Backlog Item</a>
+                </div>
+            </div>
+
+        </div>
         <div class="m-1">
             <!--    Displaying Data in Table-->
             <table class="table tbl">
-                <thead>
+                <thead class="table-dark">
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Description</th> 
-                        <th scope="col">Update</th>  
-                        <th scope="col">Delete</th>    
+                        <th scope="col">Description</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,13 +52,13 @@ $categories =  $ca->getAllCategories($dbcon);
                         <tr>
                             <th><?= $category->id; ?></th>
                             <td><?= $category->title; ?></td>
-                            <td><?= $category->description; ?></td>  
+                            <td><?= $category->description; ?></td>
                             <td>
                                 <form action="./category-delete.php" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
-                                    <input type="hidden" name="id" value="<?= $category->id;?>"/>
-                                    <input type="submit" class="button btn btn-danger" name="deleteCategory" value="Delete"/>
+                                    <input type="hidden" name="id" value="<?= $category->id; ?>" />
+                                    <input type="submit" class="button btn btn-danger" name="deleteCategory" value="Delete" />
                                 </form>
-                            </td>                          
+                            </td>
                             <td>
                                 <form action="./category-update.php" method="post">
                                     <input type="hidden" name="id" value="<?= $category->id; ?>" />
