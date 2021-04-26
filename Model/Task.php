@@ -19,7 +19,7 @@ class Task
         return $count;
     }
 
-    public function getProjectTasks($project_id, $db){
+    public function getProjectTasksByFilters($project_id, $assigned_user_id, $category_id, $state_id, $db){
         $sql = "SELECT 
                     t.id as id, 
                     t.title as title, 
@@ -30,10 +30,16 @@ class Task
                 on t.category_id = c.id 
                 left join state s 
                 on t.state_id = s.id 
-                WHERE t.project_id = :project_id";
+                WHERE t.project_id = :project_id 
+                    AND (:assigned_user_id = 0 OR t.assigned_user_id = :assigned_user_id)
+                    AND (:category_id = 0 OR t.category_id = :category_id)
+                    AND (:state_id = 0 OR t.state_id = :state_id)";
 
         $pst = $db->prepare($sql);
         $pst->bindParam(':project_id', $project_id);
+        $pst->bindParam(':assigned_user_id', $assigned_user_id);
+        $pst->bindParam(':category_id', $category_id);
+        $pst->bindParam(':state_id', $state_id);
         $pst->execute();
 
         $tasks = $pst->fetchAll(PDO::FETCH_OBJ);
