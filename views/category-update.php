@@ -19,38 +19,36 @@ if(isset($_POST['getCategoryDetails'])){
     
     $title = $category->title;
     $description = $category->description;
+    $creator_user_id = $category->creator_user_id;
 }
 
 //Submit New Changes to DB
 if(isset($_POST['updCategory'])) {
     $id= $_POST['id'];
-    $creator_user_id = $_SESSION['creator_user_id'];
+    $creator_user_id = $_POST['creator_user_id'];
     $title = $_POST['title']; 
     $description =  $_POST['description'];
     $project_id = $_SESSION['projectId'];;
 
+    $isValid = true;
 
+    if (empty($_POST['title'])) {
+        $titleErr = "Please enter the Task title";
+        $isValid = false;
+    }
 
-    if ($title != "" && $description != "") {
+    if ($isValid) {
         $db = Database::getDb();
         $ca = new Category();
-        $count = $ca->updateCategory($id, $title, $description, $project_id, $creator_user_id, $db);
+        $count = $ca->addCategory($title, $description, $project_id, $creator_user_id, $db);
 
-        if($count){
+        if ($count) {
+            //on success navigate to category list
             header("Location: ./category-list.php");
         } else {
-            echo "problem";
+            echo "problem adding a category";
         }
-    } else {
-        //validate title
-        if ($title == "") {
-            $titleErr = "Please enter category name";
-        } 
-        //validate description
-        if ($description == "") {
-            $descriptionErr = "Please enter description!";
-        }
-    }
+    } 
 }
 
 if (isset($_POST['cancelCategory'])) {
