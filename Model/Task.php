@@ -23,20 +23,17 @@ class Task
         $sql = "SELECT 
                     t.id as id, 
                     t.title as title, 
-                    u.first_name + ' ' + u.last_name as assigned_user, 
                     c.title as category, 
+                    CONCAT(au.first_name, ' ', au.last_name) as assigned,
                     s.description as state 
                 FROM tasks t 
-                left join category c 
-                on t.category_id = c.id 
-                left join state s 
-                on t.state_id = s.id 
-                left join app_user u 
-                on t.assigned_user_id = u.id 
+                LEFT JOIN category c ON t.category_id = c.id 
+                LEFT JOIN state s ON t.state_id = s.id 
+                LEFT JOIN app_user au ON au.id = t.assigned_user_id 
                 WHERE t.project_id = :project_id 
-                    AND (:assigned_user_id = 0 OR t.assigned_user_id = :assigned_user_id)
-                    AND (:category_id = 0 OR t.category_id = :category_id)
-                    AND (:state_id = 0 OR t.state_id = :state_id)";
+                    AND ( :assigned_user_id = 0 OR t.assigned_user_id = :assigned_user_id )
+                    AND ( :category_id = 0 OR t.category_id = :category_id )
+                    AND ( :state_id = 0 OR t.state_id = :state_id )";
 
         $pst = $db->prepare($sql);
         $pst->bindParam(':project_id', $project_id);

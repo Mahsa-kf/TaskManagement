@@ -112,8 +112,8 @@ if(isset($_POST['resetFilters'])){
                     <tr>
                         <th scope="col" data-field="id">ID</th>
                         <th scope="col" data-field="title" data-filter-control="input" data-sortable="true">TITLE</th>
-                        <th scope="col" data-field="assigned_user" data-filter-control="input" data-sortable="true">ASSIGNED TO</th>
                         <th scope="col" data-field="category" data-filter-control="select" data-sortable="true">BACKLOG ITEM</th>
+                        <th scope="col" data-field="assigned" data-filter-control="input" data-sortable="true">ASSIGNED TO</th>
                         <th scope="col" data-field="status" data-filter-control="select" data-sortable="true">STATE</th>
                         <th scope="col"></th>
                     </tr>
@@ -124,7 +124,7 @@ if(isset($_POST['resetFilters'])){
                             <th><?= $task->id; ?></th>
                             <td><?= $task->title; ?></td>
                             <td><?= $task->category; ?></td>
-                            <td><?= $task->assigned_user; ?></td>
+                            <td><?= $task->assigned; ?></td>
                             <td><?= $task->state; ?></td>
                             <td class="text-right">
                                 <form action="./task-update.php" method="post">
