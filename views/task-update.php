@@ -55,24 +55,44 @@ $priorities = $pr->getPriorities($dbcon);
 
 //Submit New Changes to DB
 if (isset($_POST['updTask'])) {
-    $id = $_POST['id'];
     $title = $_POST['title'];
+    $id = $_POST['id'];
+    $category_id = $_POST['category_id'];
     $description =  $_POST['description'];
     $assigned_user_id =  $_POST['assigned_user_id'];
-    $state_id =  $_POST['state_id'];
-    $category_id = $_POST['category_id'];
-    $priority_id =  $_POST['priority_id'];
     $estimated_time =  $_POST['estimated_time'];
+    $state_id =  $_POST['state_id'];
     $spent_time =  $_POST['spent_time'];
     $remaining_time =  $_POST['remaining_time'];
     $due_date =  $_POST['due_date'];
+    $priority_id = $_POST['priority_id'];
 
-    $count = $t->updateTask($id, $title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $dbcon);
+    $isValid = true;
 
-    if ($count) {
-        header("Location: ./task-board.php");
-    } else {
-        echo "Problem in updating task";
+    if (empty($_POST['title'])) {
+        $titleErr = "Please enter the Task title";
+        $isValid = false;
+    }
+    if (empty($_POST['category_id'])) {
+        $categoryErr = "Please select the task's backlog item";
+        $isValid = false;
+    }
+    if (empty($_POST['priority_id'])) {
+        $priorityErr = "Please select the task's priority";
+        $isValid = false;
+    }
+    if (empty($_POST['estimated_time'])) {
+        $estimateTimeErr = "Please select the task's estimate time";
+        $isValid = false;
+    }
+    if ($isValid) {
+        $count = $t->updateTask($id, $title, $description, $assigned_user_id, $state_id, $category_id, $priority_id, $estimated_time, $spent_time, $remaining_time, $due_date, $dbcon);
+
+        if ($count) {
+            header("Location: ./task-board.php");
+        } else {
+            echo "Problem in updating task";
+        }
     }
 }
 
@@ -98,7 +118,7 @@ if (isset($_POST['deleteTask'])) {
 
 ?>
 <main>
-    <section class="container my-5">
+    <section class="container my-5 mb-5">
         <form action="" name="taskForm" method="post">
             <div class="row">
                 <div class="col-sm-6">
@@ -113,20 +133,21 @@ if (isset($_POST['deleteTask'])) {
             <input type="hidden" id="id" name="id" value="<?= $id ?>" />
             <div class="row">
                 <div class="form-group col-12">
-                    <label for="task">Title:</label>
+                    <label for="title">Title:</label>
                     <input class="form-control" type="text" id="title" name="title" value="<?= isset($title) ? $title : ''; ?>" />
+                    <span class="text-danger"><?= isset($titleErr) ? $titleErr : ''; ?></span>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-12">
                     <label for="category">Backlog Item:</label>
                     <select class="form-control" name="category_id" id="category_id">
-                        <option value="" select="selected">-- Backlog Item --</option>
+                        <option value="0" select="selected">-- Backlog Item --</option>
                         <?php foreach ($categories as $category) { ?>
                             <option value="<?= $category['id'] ?>" <?= $category_id == $category['id'] ? ' selected="selected"' : ''; ?>><?php echo $category['title'] ?></option>
                         <?php } ?>
                     </select>
-                    <span style="color:red;"><?= isset($CategoryErr) ? $CategoryErr : ''; ?></span>
+                    <span class="text-danger"><?= isset($categoryErr) ? $categoryErr : ''; ?></span>
                 </div>
             </div>
             <div class="row">
@@ -160,8 +181,9 @@ if (isset($_POST['deleteTask'])) {
                 <div class="col-md-6">
                     <div class="row">
                         <div class="form-group">
-                            <label for="estimated_time">Original Estimated:</label>
+                            <label class="required" for="estimated_time">Original Estimated:</label>
                             <input class="form-control" type="number" step="0.5" id="estimated_time" name="estimated_time" value="<?= isset($estimated_time) ? $estimated_time : ''; ?>">
+                            <span class="text-danger"><?= isset($priorityErr) ? $priorityErr : ''; ?></span>
                         </div>
                     </div>
                     <div class="row">
@@ -186,14 +208,14 @@ if (isset($_POST['deleteTask'])) {
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <label for="priority_id">Priority:</label>
+                            <label class="required" for="priority_id">Priority:</label>
                             <select class="form-control" name="priority_id" id="priority_id" value="<?= isset($priority_id) ? $priority_id : ''; ?>">
                                 <option value="" select="selected">-- Backlog Item --</option>
                                 <?php foreach ($priorities as $priority) { ?>
                                     <option value="<?= $priority['id'] ?>" <?= $priority_id == $priority['id'] ? ' selected="selected"' : ''; ?>><?php echo $priority['description'] ?></option>
                                 <?php } ?>
                             </select>
-                            <span style="color:red;"><?= isset($priorityErr) ? $priorityErr : ''; ?></span>
+                            <span class="text-danger"><?= isset($priorityErr) ? $priorityErr : ''; ?></span>
                         </div>
                     </div>
                 </div>

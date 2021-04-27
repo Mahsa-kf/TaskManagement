@@ -196,3 +196,8 @@ form .row {
 .text-right {
     text-align: right !important;
 }
+
+label.required:after {
+    content:"*";
+    color:red;
+  }

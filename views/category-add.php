@@ -13,10 +13,17 @@ require_once '../Model/Category.php';
 if (isset($_POST['addCategory'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $project_id = 2;   // to do: get info from session
-    $creator_user_id = 3;   // to do: get info from session
+    $project_id = $_SESSION['projectId'];;
+    $creator_user_id = $_SESSION['userId'];
 
-    if ($title != "" && $description != "") {
+    $isValid = true;
+
+    if (empty($_POST['title'])) {
+        $titleErr = "Please enter the Task title";
+        $isValid = false;
+    }
+
+    if ($isValid) {
         $db = Database::getDb();
         $ca = new Category();
         $count = $ca->addCategory($title, $description, $project_id, $creator_user_id, $db);
@@ -27,16 +34,7 @@ if (isset($_POST['addCategory'])) {
         } else {
             echo "problem adding a category";
         }
-    } else {
-        //validate title
-        if ($title == "") {
-            $titleErr = "Please enter category name";
-        }
-        //validate description
-        if ($description == "") {
-            $descriptionErr = "Please enter description!";
-        }
-    }
+    } 
 }
 
 if (isset($_POST['cancelAddCategory'])) {
@@ -59,15 +57,15 @@ if (isset($_POST['cancelAddCategory'])) {
             </div>
             <div class="row">
                 <div class="form-group col-12">
-                    <label for="category">Category name:</label>
-                    <input class="form-control" type="text" id="category" name="title" value="<?= isset($title) ? $title : ''; ?>" />
-                    <span style="color:red;"><?= isset($titleErr) ? $titleErr : ''; ?></span>
+                    <label for="category" class="required">Title</label>
+                    <input class="form-control" type="text" id="title" name="title" value="<?= isset($title) ? $title : ''; ?>" />
+                    <span class="text-danger"><?= isset($titleErr) ? $titleErr : ''; ?></span>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-12">
-                    <label for="description">Description:</label>
-                    <textarea class="form-control" name="description" id="description" rows="8" cols="50" value="<?= isset($description) ? $description : ''; ?>"></textarea>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" name="description" id="description" rows="8" cols="50"></textarea>
                     <span style="color:red;"><?= isset($descriptionErr) ? $descriptionErr : ''; ?></span>
                 </div>
             </div>
