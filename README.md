@@ -121,22 +121,24 @@ Our system will track deadlines and notify members of upcoming due dates. Our sy
 ### Mahsa Karimi Fard'S CONTRIBUTION
 
 #### Features (Mahsa)
-- Category or Backlog(CRUD):
+- First: Category or Backlog(CRUD):
     - views/category-add.php                  
     - views/category-list.php, 
     - views/category-delete.php                  
     - views/category-update.php
     - Model/Category.php
-    - Applied Validations to forms
+    - Applied Validations to forms   
 
-- Task(CRUD) feature:
+
+- Second: Task(CRUD) feature:
     - views/task-add.php                  
     - views/task-delete.php                  
     - views/task-update.php
     - Model/task.php
     - Applied Validations to forms
 
-- Task Board (Filtering)
+
+- Third: Task Board (Filtering)
     - views/task-board.php 
     - Filtering (options to filter tasks by Assigned To which member/ By Backlog Items(related tasks)/ By State(Done-In progress-To Do and canceled))
     - Assigned To- Dropdown (Model/member.php)
@@ -144,6 +146,20 @@ Our system will track deadlines and notify members of upcoming due dates. Our sy
     - State- Dropdown (Model/State.php)
     - Reset Filters 
     - Apply Filters
+
+ #### Description for Category or Backlog Items (CRUD)
+- In category list or Backlog Items you are able to see the list of backlog items. A project backlog is a list of the new features, changes to existing features, bug fixes or other activities that a team may deliver in order to achieve a specific outcome. Each backlog item may have several tasks.
+    User can delete backlog item in list page.
+#### Description for Task CRUD:
+-  From the task-board page, the user can see the list of tasks which by clicking on the details button that it will navigate to update and delete pages. For creating a new task, user clicks on the button and it will navigate to the task-add page. there are two buttons in this page save and cancel that by clicking on boat they will back to task-board page.
+#### Description For Task-Board Filtering:
+- Filtering: There are tree dropdowns options to filter task list:
+  -	Assigned To: Only display tasks which assigned to a specific person
+  -	Backlog Item: Only display tasks related to a Backlog Item
+  -	State: display task with specific state (Done, In progress, To Do or canceled)
+
+Two buttons which represents the Reset Filters when user doesn’t want to apply any filters by clicking on this button it will back to previous or original list of tasks. And Apply filters, user can apply filtering by any of these 3 dropdowns or even all together.
+
 
 #### Learning Curve
 - Learning curve for this project was medium

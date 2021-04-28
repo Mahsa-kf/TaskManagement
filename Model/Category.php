@@ -19,9 +19,10 @@ class Category
         return $categories;
     }
 
-    public function getCategoriesList($db){
-        $sql = "SELECT id, title FROM category";
+    public function getCategoriesList($project_id, $db){
+        $sql = "SELECT id, title FROM category where project_id = :project_id,";
         $pdostm = $db->prepare($sql);
+        $pdostm->bindParam(':project_id', $project_id);
         $pdostm->execute();
 
         $categories = $pdostm->fetchAll(PDO::FETCH_ASSOC);

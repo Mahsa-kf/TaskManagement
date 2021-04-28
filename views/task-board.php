@@ -16,13 +16,14 @@ insertHeader();
 $dbcon = Database::getDb();
 $t = new Task();
 
+// check if the user logged in and a project is selected
 if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['projectId'])) {
 
     //Get project_id from session and put in a variable
     $project_id = $_SESSION['projectId'];
     $project_name = $_SESSION['projectName'];
 
-    //Get all the tasks in this project
+    //Get all the tasks in this project- here 0 means filter is empty
     $tasks =  $t->getProjectTasksByFilters($project_id, 0, 0, 0, $dbcon);
 
     //Get all the users in the project to display in filter drop-down
@@ -31,7 +32,7 @@ if (isset($_SESSION['userId']) && $_SESSION['isLoggedIn']  && isset($_SESSION['p
 
     //Get all categories in project to display in filter drop-down
     $ca = new Category();
-    $categories =  $ca->getCategoriesList($dbcon);
+    $categories =  $ca->getCategoriesList($project_id, $dbcon);
 
     //Get all states to display in filter drop-down
     $st = new State();

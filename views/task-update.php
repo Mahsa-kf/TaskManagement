@@ -42,7 +42,7 @@ $users = $m->getProjectUsersList($project_id, $dbcon);
 
 //Get all categories in project to display in the drop-down
 $ca = new Category();
-$categories =  $ca->getCategoriesList($dbcon);
+$categories =  $ca->getCategoriesList($project_id, $dbcon);
 
 //Get all the states to display in the drop-down
 $st = new State();
